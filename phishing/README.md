@@ -41,3 +41,6 @@
 - Atuomated
   - https://www.phishtool.com (use this often)
 
+## References
+- https://www.incidentresponse.org/playbooks/phishing
+
