@@ -5,6 +5,18 @@
 - Be wary of `SPF failed` in tools like `https://toolbox.googleapps.com/apps/messageheader/`
 - Reference to SPF syntax: `https://dmarcian.com/spf-syntax-table/`
 
+## DomainKeys Identified Mail (DKIM) similart to SPF but exists in SPF
+- `a tamper-evident domain seal associated with a piece of email`
+- Result will be under `Authentication-Results` head `dkim=pass`
+- `https://dmarcian.com/domain-checker/` check domain DMARC info here
+
+## Domain-based  Message Authentication Reporting, & Conformance (DMARC)
+- Combines DKIM and SPF
+- DMARC record example `v=DMARC1; p=quarantine; rua=mailto:postmaster@website.com`. if check fails `quarantine` send reports to `postmaster@website.com`.
+
+## S/MIME Secure/Multipurpose internet Mail Extensions
+- Similar to Digital signature
+- Sender should have a digital certificate, receiver should have senders public key to verify.
 # Email Analysis
 - guide in https://mediatemple.net/community/products/all/204643950/understanding-an-email-header
 - Upload eml file to https://app.phishtool.com
