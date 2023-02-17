@@ -1,0 +1,4 @@
+- guide in https://mediatemple.net/community/products/all/204643950/understanding-an-email-header
+- Upload eml file to https://app.phishtool.com
+- `Sender` and `Reply-To` not same is sus
+- View source code in email code, might give you some extra info
