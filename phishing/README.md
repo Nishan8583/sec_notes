@@ -1,3 +1,11 @@
+# Sender Policy Framework (SPF)
+- SPF records have which include list of mail servers that can send mail on behalf of the domain
+- Ex from tryhacke `v=spf1 ip4:127.0.0.1 include:_spf.google.com -all`. Here ip `127.0.0.1` and domain `_spf.google.com` can send mail. `-all` means non auhorized mail will be rejected.
+- `https://dmarcian.com` is popularly used for SPF informaiton.
+- Be wary of `SPF failed` in tools like `https://toolbox.googleapps.com/apps/messageheader/`
+- Reference to SPF syntax: `https://dmarcian.com/spf-syntax-table/`
+
+# Email Analysis
 - guide in https://mediatemple.net/community/products/all/204643950/understanding-an-email-header
 - Upload eml file to https://app.phishtool.com
 - `Sender` and `Reply-To` not same is sus
@@ -20,3 +28,4 @@
   - https://app.any.run
 - Atuomated
   - https://www.phishtool.com (use this often)
+
