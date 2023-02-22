@@ -12,3 +12,4 @@
  - `id.orig_h==192.168.121.40`
  - `_path=="conn" | cut id.orig_h, id.resp_h | sort | uniq -c | sort -r` to see frequest communication
  - `_path=="conn" | cut id.orig_h, id.resp_p, id.resp_h, duration | sort -r duration` long duration of communications
+ - `event_type=="alert" | cut alert.category, alert.metadata.mitre_technique_name, alert.metadata.mitre_technique_id, alert.metadata.mitre_tactic_name | sort | uniq -c` see mitre metadata stuffs
