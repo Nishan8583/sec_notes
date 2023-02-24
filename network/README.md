@@ -82,6 +82,8 @@ event zeek_done()
  - Base scripts location `/opt/zeek/share/zeek/base`
  - You can load all of them via `zeek -C -r sample.pcap local`
  - Load specific via `zeek -C -r sample.pcap /opt/zeek/share/zeek/policy/protocols/ftp/detect-bruteforcing.zeek`
+ - Framework https://docs.zeek.org/en/master/frameworks/index.html 
+ - We can install third party packages with `zkg install zeek/cybera/zeek-sniffpass`. Can just use it like `zeek -C -r sample.pcap zeek-sniffpass`
  
 # SNORT
  - Detect png `alert tcp any any <> any any  (msg: "PNG Packet Found";content:"|89 50 4E 47|"; ;sid: 100001; rev:1;)` -> any source any port <> (bidirectional), content could be string "||" mean hex byte
