@@ -57,3 +57,41 @@ ip-proto: Filtering TCP connection.
 dst-port: Filtering destination port 80.
 payload: Filtering the "password" phrase.
 event: Signature match message.`
+ - It has its scripting language, its event-driven not packet driven
+ - To learn `https://try.bro.org/#/?example=hello`
+ - Extension is .zeek
+ - Sample derived from tryhackme `event dhcp_message (c: connection, is_orig: bool, msg: DHCP::Msg, options: DHCP::Options)
+{
+print options$host_name;
+}`
+ - `c: connection` has the entier packet, and you can dump it as `print c;`
+ - Access fields this way `print fmt ("Source Host: %s # %s --->", c$id$orig_h, c$id$orig_p);`.
+ - zeek_init() and zeek_done() are two events that will always occur, one when zeek start, the other when it terminates.`event zeek_init()
+	{
+	print "Hello, World!";
+	}
+
+event zeek_done()
+	{
+	print "Goodbye, World!";
+	}
+`
+ - To load script `@load misc/dump-events`
+ - To use specific zeek scripts `zeek -C -r smallFlows.pcap dhcp-hostname.zeek `
+ - A command I used that helped `cat dns.log | zeek-cut query | sort | uniq | grep -v -e '*' -e '-' | wc -l`
+ - Base scripts location `/opt/zeek/share/zeek/base`
+ - You can load all of them via `zeek -C -r sample.pcap local`
+ - Load specific via `zeek -C -r sample.pcap /opt/zeek/share/zeek/policy/protocols/ftp/detect-bruteforcing.zeek`
+ 
+# SNORT
+ - Detect png `alert tcp any any <> any any  (msg: "PNG Packet Found";content:"|89 50 4E 47|"; ;sid: 100001; rev:1;)` -> any source any port <> (bidirectional), content could be string "||" mean hex byte
+ - snort -c local.rules -r ftp-png-gif.pcap -l .
+ - `snort -r snort.log.1677011936 -vv -d`  -r (read from this log file) -d (dump the packets as well)
+ - More stuffs in https://asecuritysite.com/forensics/snort?fname=with_pdf.pcap&rulesname=rulessig.rules
+ - for torrent files `alert tcp any any <> any any (msg:"torrent"; content:".torrent";sid:100001;)`
+ - `sudo snort -c /etc/snort/snort.conf -q -Q --daq afpacket -i eth0:eth1 -A console` To run in IPS mode
+ - `snort -i eth0 -v`
+ - For tryhackme brute force challange my alert rule was `alert tcp any any -> any 22 (msg:"SSH Brute-Force attack"; detection_filter:track by_src, count 100, seconds 20; sid:1000281; rev:2;)`
+ 
+## Interensting links
+ - https://securitylab.disi.unitn.it/lib/exe/fetch.php?media=teaching:netsec:2016:slides:t11:group2_-_ids_snort.pdf
