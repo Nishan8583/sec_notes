@@ -95,5 +95,11 @@ event zeek_done()
  - `snort -i eth0 -v`
  - For tryhackme brute force challange my alert rule was `alert tcp any any -> any 22 (msg:"SSH Brute-Force attack"; detection_filter:track by_src, count 100, seconds 20; sid:1000281; rev:2;)`
  
+# Wireshark
+ - Its pretty simple to use
+ - Couple of cool tips tho
+ - in `Edit -> Preferences -> Name Resolution` Resolve transport and network IP address and then below `Max Mind Database` entries, for GEO IP 
+ - In `statistics ` endpoints, or conversations, we can resolve names now
+ - Statistics http, dns and IP can be pretty cool, display filter is same as in the main window
 ## Interensting links
  - https://securitylab.disi.unitn.it/lib/exe/fetch.php?media=teaching:netsec:2016:slides:t11:group2_-_ids_snort.pdf
