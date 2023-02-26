@@ -101,5 +101,12 @@ event zeek_done()
  - in `Edit -> Preferences -> Name Resolution` Resolve transport and network IP address and then below `Max Mind Database` entries, for GEO IP 
  - In `statistics ` endpoints, or conversations, we can resolve names now
  - Statistics http, dns and IP can be pretty cool, display filter is same as in the main window
+ - Besides basic operators that can be used in display filters, some other stuffs that can be used are `contains`, to check if the string contains a substring `http.server contains "Apache"`. 
+ - For regular expression, `http.host matches "\.(php|html)"`
+ - To seach if a value in a field is within certain scope range `tcp.port in {80 443 8080}`
+ - Convert value from a field into uppercase `upper(http.server) contains "APACHE"`
+ - Same can be done with `lower`
+ - We can also use string to convert not string to string `string(frame.number) matches "[13579]$"`
+ - We can also save the filters it seems, who knew right.
 ## Interensting links
  - https://securitylab.disi.unitn.it/lib/exe/fetch.php?media=teaching:netsec:2016:slides:t11:group2_-_ids_snort.pdf
