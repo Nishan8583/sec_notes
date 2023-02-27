@@ -103,10 +103,20 @@ event zeek_done()
  - Statistics http, dns and IP can be pretty cool, display filter is same as in the main window
  - Besides basic operators that can be used in display filters, some other stuffs that can be used are `contains`, to check if the string contains a substring `http.server contains "Apache"`. 
  - For regular expression, `http.host matches "\.(php|html)"`
- - To seach if a value in a field is within certain scope range `tcp.port in {80 443 8080}`
+ - To seach if a value in a field is within certain scope range `tcp.port in {80 443 8080}` or port range `udp.port in {55..70}`
  - Convert value from a field into uppercase `upper(http.server) contains "APACHE"`
  - Same can be done with `lower`
  - We can also use string to convert not string to string `string(frame.number) matches "[13579]$"`
  - We can also save the filters it seems, who knew right.
+
+# Identifying attacks in wireshark
+ - If need more info, look at following tryhackme lab `https://tryhackme.com/room/wiresharktrafficanalysis`,
+ - In wireshark you can filters like `tcp.flags.syn == 1` which is equivalant to syn scan, see the time frame.
+ - For TCP connect scan in wireshark use filter `(tcp.flags.syn == 1) && (tcp.flags.ack == 0) && tcp.window_size == 1024`
+ - Possible ARP poisioning detection `arp.duplicate-address-detected or arp.duplicate-address-frame`
+ - Possible ARP flooding `((arp) && (arp.opcode == 1)) && (arp.src.hw_mac == target-mac-address)`
+ - ARP request `arp.opcode == 1` ARP response `arp.opcode == 2` ARP scanning `arp.dst.hw_mac==00:00:00:00:00:00`
+ - For hostname discovery, use `dhcp`, `dns` and `kerberos` filtering
+ - Tunneling detection `dns.qry.name.len > 15 and !mdns` and `data.len > 64 and icmp`. The idea here is to search for `dns` and `icmp` packets that have packet size which are not normal. 
 ## Interensting links
  - https://securitylab.disi.unitn.it/lib/exe/fetch.php?media=teaching:netsec:2016:slides:t11:group2_-_ids_snort.pdf
