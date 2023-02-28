@@ -20,3 +20,70 @@
   - sysmon
   - osquery (Enter cli with `osqueryi`)
   - wazuh
+- Processes
+  - task manager, processes hacker, process explorer `Publisher` author of program.
+  - Process named `System`. `special kind of thread that runs only in kernel mode a kernel-mode system thread`. Its normal behavior are
+      - PID will always be 4
+      - In task manager
+        - Image Path:  N/A
+        - Parent Process:  None
+        - Number of Instances:  One
+        - User Account:  Local System
+        - Start Time:  At boot time
+      - In process hacker
+        - Image Path: C:\Windows\system32\ntoskrnl.exe (NT OS Kernel)
+        - Parent Process: System Idle Process (0)
+   - `smss.exe`
+      - `Session Manager Subsystem`
+      - aka `Windows Session Manager`
+      - responsible for creating new sessions
+      - starts `csrss.exe` (Windows subsystem) and `wininit.exe` in Session 0
+      - starts `csrss.exe` and `winlogon.exe` for Session 1
+      - first child instance creates child instances in new sessions, done by smss.exe copying itself into the new session and self-terminating
+      - https://en.wikipedia.org/wiki/Session_Manager_Subsystem
+      - also responsible for `creating environment variables`, `virtual memory paging files` and starts `winlogon.exe` (the Windows Logon Manager).
+      - Normal Behavior
+        - Image Path:  `%SystemRoot%\System32\smss.exe`
+        - Parent Process:  `System`
+        - Number of Instances:  `One master instance and child instance per session. The child instance exits after creating the session.`
+        - User Account:  `Local System`
+        - Start Time:  `Within seconds of boot time for the master instance`
+      - Abnormal Behavior
+        - A different parent process other than System (4)
+        - The image path is different from C:\Windows\System32
+        - More than one running process. (children self-terminate and exit after each new session)
+        - The running User is not the `SYSTEM` user
+        - Unexpected registry entries for Subsystem
+    - `crss.exe`
+      - `Client Server Runtime Process`
+      - `always running and is critical to system operation.`
+      - responsible for the Win32 console window and process thread creation and deletion
+      - responsible for making the Windows API available to other processes, mapping drive letters, and handling the Windows shutdown
+      - https://en.wikipedia.org/wiki/Client/Server_Runtime_Subsystem
+      - Normal Behavior
+        - Image Path:  `%SystemRoot%\System32\csrss.exe`
+        - Parent Process:  `Created by an instance of smss.exe`
+        - Number of Instances:  `Two or more`
+        - User Account:  `Local System`
+        - Start Time:  `Within seconds of boot time for the first two instances (for Session 0 and 1). Start times for additional instances occur as new sessions are created, although only Sessions 0 and 1 are often created.`
+      - Abnormal Behavior
+        - An actual parent process. (smss.exe calls this process and self-terminates)
+        - Image file path other than C:\Windows\System32
+        - Subtle misspellings to hide rogue processes masquerading as csrss.exe in plain sight
+        - The user is not the `SYSTEM` user.
+    - `wininit.exe`
+      - Windows Initialization Process
+      - responsible for launching `services.exe` (Service Control Manager), `lsass.exe` (Local Security Authority), and `lsaiso.exe` within `Session 0 `
+      - Note: lsaiso.exe is a process associated with Credential Guard and KeyGuard. You will only see this process if Credential Guard is enabled. 
+      - Normal Behavior
+        - Image Path:  `%SystemRoot%\System32\wininit.exe`
+        - Parent Process:  `Created by an instance of smss.exe`
+        - Number of Instances:  `One`
+        - User Account:  `Local System`
+        - Start Time:  `Within seconds of boot time`
+      - Abnormal Behavior
+        - An actual parent process. (smss.exe calls this process and self-terminates)
+        - Image file path other than C:\Windows\System32
+        - Subtle misspellings to hide rogue processes in plain sight
+        - Multiple running instances
+        - Not running as SYSTEM
