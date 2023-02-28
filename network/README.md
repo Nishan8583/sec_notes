@@ -125,5 +125,8 @@ event zeek_done()
  - File upload transfer complete status code is `ftp.response.code == 226`
  - If you want more, ofcourse look at tryhackme lab `https://tryhackme.com/room/wiresharktrafficanalysis`
  - For HTTP, list of valid http user agents `https://explore.whatismybrowser.com/useragents/explore/`
+ - For HTTPS, enable key log dump in browser, then, `Edit -> Protocol Preferences -> Pre Master ... -> TLS -> key log stuff`
+ - Some extra stuffs `Tools -> Credentials` and select a packet and `Tools -> Firewall ACL Rules`
+ 
 ## Interensting links
  - https://securitylab.disi.unitn.it/lib/exe/fetch.php?media=teaching:netsec:2016:slides:t11:group2_-_ids_snort.pdf
