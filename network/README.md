@@ -118,5 +118,12 @@ event zeek_done()
  - ARP request `arp.opcode == 1` ARP response `arp.opcode == 2` ARP scanning `arp.dst.hw_mac==00:00:00:00:00:00`
  - For hostname discovery, use `dhcp`, `dns` and `kerberos` filtering
  - Tunneling detection `dns.qry.name.len > 15 and !mdns` and `data.len > 64 and icmp`. The idea here is to search for `dns` and `icmp` packets that have packet size which are not normal. 
+ - Again from tryhackme for ftp `ftp`.
+ - To check directory status `ftp.response.code == 211`
+ - FTP login `ftp.response.code == 230`
+ - Failed login attempts `ftp.response.code == 530`
+ - File upload transfer complete status code is `ftp.response.code == 226`
+ - If you want more, ofcourse look at tryhackme lab `https://tryhackme.com/room/wiresharktrafficanalysis`
+ - For HTTP, list of valid http user agents `https://explore.whatismybrowser.com/useragents/explore/`
 ## Interensting links
  - https://securitylab.disi.unitn.it/lib/exe/fetch.php?media=teaching:netsec:2016:slides:t11:group2_-_ids_snort.pdf
