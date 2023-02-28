@@ -1,6 +1,5 @@
-`NOTE: These notes are derived from the following sources:
+`NOTE: These notes are derived from the following sources:`
 1. https://tryhackme.com/room/introtoendpointsecurity
-2. `
 
 ## Windows
 - Normal windows process 
