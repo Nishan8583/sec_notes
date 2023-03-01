@@ -21,6 +21,20 @@
   - sysmon
   - osquery (Enter cli with `osqueryi`)
   - wazuh
+  - Sysinternals https://docs.microsoft.com/en-us/sysinternals/downloads/
+- Sysinternals
+  - `sigcheck` file check, even virustotal check . Ex: `sigcheck -u -e C:\Windows\System32`
+  - `streams` to check files in ADS. use `streams file.txt`. It will show the alternate stream filename. use notepad to look at it `notepad file.txt:ads.txt`
+  - `sdelete` secure delete
+  - `tcpview` or `resmon` for network monitoring
+  - `autoruns` look at value that will run on startup
+  - `procdump` `process explorer` `process monitor`
+  - `psexec` execute command remotely
+  - `sysmon` for detailed logging
+  - `winobj` to see NT objects stuff ?
+  - `bginfo` get background running processes
+  - `regjump` takes a reg path and open in UI, i dont know how usefule it is, but is convinient
+  - `strings` we know
 - Processes
   - task manager, processes hacker, process explorer `Publisher` author of program.
   - Process named `System`. `special kind of thread that runs only in kernel mode a kernel-mode system thread`. Its normal behavior are
