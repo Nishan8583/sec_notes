@@ -1,5 +1,7 @@
 `NOTE: These notes are derived from the following sources:`
 1. https://tryhackme.com/room/introtoendpointsecurity
+2. https://www.sans.org/posters/hunt-evil/
+3. https://learn.microsoft.com/en-us/sysinternals/resources/windows-internals
 
 ## Windows
 - Normal windows process 
@@ -86,3 +88,91 @@
         - Subtle misspellings to hide rogue processes in plain sight
         - Multiple running instances
         - Not running as SYSTEM
+    - `services.exe`
+      - Service Control Manager (SCM) 
+      - handle system services. `loading services, interacting with services and starting or ending services`
+      - maintains a database that can be queried using a Windows built-in utility, `sc.exe`
+      - Informaiton related to services are stored in `HKLM\System\CurrentControlSet\Services`
+      - When a user logs into a machine successfully, this process is responsible for setting the value of the Last Known Good control set (Last Known Good Configuration), HKLM\System\Select\LastKnownGood, to that of the CurrentControlSet.
+      - Parent to several process including `svchost.exe, spoolsv.exe, msmpeng.exe, and dllhost.exe`.
+      - Normal Behavior
+        - Image Path: `%SystemRoot%\System32\services.exe`
+        - Parent Process:  `wininit.exe`
+        - Number of Instances:  `One`
+        - User Account:  `Local System`
+        - Start Time:  `Within seconds of boot time`
+      - Abnormal Behavior
+        - `A parent process other than wininit.exe`
+        - `Image file path other than C:\Windows\System32`
+        - `Subtle misspellings to hide rogue processes in plain sight`
+        - `Multiple running instances`
+        - `Not running as SYSTEM`
+    - ` svchost.exe`
+      - `wininit.exe > services.exe > svchost.exe`
+      - `Service Host (Host Process for Windows Services)`
+      - responsible for hosting and managing Windows services
+      - This process loads a service as a dll. so the services are written as dll.
+      - The service info will be in `HKLM\SYSTEM\CurrentControlSet\Services\SERVICE NAME\Parameters`
+      - `-k Dcomlaunch -p` is the command arguement
+      - Multiple instances of svchost.exe will be there, so common target for malware authors to masquared as.
+      - Normal Behavior
+        - Image Path: `%SystemRoot%\System32\svchost.exe`
+        - Parent Process: `services.exe`
+        - Number of Instances: `Many`
+        - User Account: `Varies (SYSTEM, Network Service, Local Service) depending on the svchost.exe instance. In Windows 10, some instances run as the logged-in user`.
+        - Start Time: `Typically within seconds of boot time. Other instances of svchost.exe can be started after boot.`
+      - Abnormal Behavior
+        - A parent process other than services.exe
+        - Image file path other than C:\Windows\System32
+        - Subtle misspellings to hide rogue processes in plain sight
+        - The absence of the -k parameter
+    - `lsass.exe`
+      - `responsible for enforcing the security policy on the system`
+      - `creates security tokens for SAM (Security Account Manager), AD (Active Directory), and NETLOGON.`
+      - uses authentication packages specified in `HKLM\System\CurrentControlSet\Control\Lsa`
+      - Normal Behavior
+        - Image Path:  `%SystemRoot%\System32\lsass.exe`
+        - Parent Process:  `wininit.exe`
+        - Number of Instances:  `One`
+        - User Account:  `Local System`
+        - Start Time:  `Within seconds of boot time`
+      - Abnormal Behavior
+        - A parent process other than wininit.exe
+        - Image file path other than C:\Windows\System32
+        - Subtle misspellings to hide rogue processes in plain sight
+        - Multiple running instances
+        - Not running as SYSTEM
+    - `winlogon.exe`
+      - handling the Secure Attention Sequence (SAS). It is the ALT+CTRL+DELETE key combination users press to enter their username & password.
+      - responsible for loading the user profile
+      - Loads the user's `NTUSER.DAT` into HKCU, and userinit.exe loads the user's shell
+      - also responsible for locking the screen and running the user's screensaver, among other functions
+      - Normal Behavior
+        - Image Path:  `%SystemRoot%\System32\winlogon.exe`
+        - Parent Process:  `Created by an instance of smss.exe that exits, so analysis tools usually do not provide the parent process name.`
+        - Number of Instances:  `One or more`
+        - User Account:  `Local System`
+        - Start Time:  `Within seconds of boot time for the first instance (for Session 1). Additional instances occur as new sessions are created, typically through Remote Desktop or Fast User Switching logons.`
+      - Abnormal Behavior
+        - An actual parent process. (smss.exe calls this process and self-terminates)
+        - Image file path other than C:\Windows\System32
+        - Subtle misspellings to hide rogue processes in plain sight
+        - Not running as SYSTEM
+        - Shell value in the registry other than explorer.exe  
+      - https://en.wikipedia.org/wiki/Winlogon
+    - `explorer.exe`
+      - Gives user access to files and folder
+      - winlogon.exe -> userinit.exe, which launches the value in HKLM\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\Shell. 
+      - Userinit.exe exits after spawning explorer.exe. Because of this, the parent process is non-existent.
+      - Normal Behavior
+        - Image Path:  `%SystemRoot%\explorer.exe`
+        - Parent Process:  `Created by userinit.exe and exits`
+        - Number of Instances:  `One or more per interactively logged-in user`
+        - User Account:  `Logged-in user(s)`
+        - Start Time:  `First instance when the first interactive user logon session begins`
+      - Abnormal Behavior
+        - An actual parent process. (userinit.exe calls this process and exits)
+        - Image file path other than C:\Windows
+        - Running as an unknown user
+        - Subtle misspellings to hide rogue processes in plain sight
+        - Outbound TCP/IP connections
