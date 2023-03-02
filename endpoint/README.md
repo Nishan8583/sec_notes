@@ -192,3 +192,4 @@
         - Outbound TCP/IP connections.
 - Event Logs
   - Read with event viewr or `wevtutil.exe`  `https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/wevtutil`
+  - From powershell `Get-WinEvent`. `https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.diagnostics/Get-WinEvent?view=powershell-7.3&viewFallbackFrom=powershell-7.1`
