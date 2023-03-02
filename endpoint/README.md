@@ -189,4 +189,6 @@
         - Image file path other than C:\Windows
         - Running as an unknown user
         - Subtle misspellings to hide rogue processes in plain sight
-        - Outbound TCP/IP connections
+        - Outbound TCP/IP connections.
+- Event Logs
+  - Read with event viewr or `wevtutil.exe`  `https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/wevtutil`
