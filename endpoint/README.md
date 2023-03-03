@@ -193,3 +193,14 @@
 - Event Logs
   - Read with event viewr or `wevtutil.exe`  `https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/wevtutil`
   - From powershell `Get-WinEvent`. `https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.diagnostics/Get-WinEvent?view=powershell-7.3&viewFallbackFrom=powershell-7.1`
+  - Xpath. `Get-WinEvent -LogName Security -FilterXPath '*/EventData/Data[@Name="TargetUserName"]="System"' -MaxEvents 1`. See xml data in details
+  - For xpath, starts with *.
+  - Each element becomes a word. `<EventData>` becomes `/EventData`1
+  - Ex:
+  - ![evenLogImg](xml_event.jpg)
+  
+  - We can use `Get-WinEvent -LogName System -FilterXPath '*/System/TimeCreatedTime="2020-12-15T01:09:08.940277500Z" and */System/Provider[@Name="WLMS"]'`.
+  - in above, `*` to get all first level, then `System` next level and then filter accordingly.
+  - Another Example
+  - ![login](xml_login.jpg)
+  -  `Get-WinEvent -LogName Security -FilterXPath '*/EventData/Data[@Name="SubjectUserName"]="Administrator" and */System/EventID=4720'`
