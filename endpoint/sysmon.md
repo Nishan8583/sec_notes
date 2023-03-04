@@ -1,0 +1,19 @@
+# SYSMON
+```Summarized from tryhackme room https://tryhackme.com/room/sysmon```
+- system service and device driver that, once installed on a system, remains resident across system reboots to monitor and log system activity to the Windows event log
+- Its managed through configurations. Sample `https://github.com/SwiftOnSecurity/sysmon-config`
+- Has its own event IDs
+  - 1: `Process Creation`
+  - 3: `Network Connection`
+  - 7: Image loaded `DLLs loaded by a process`
+  - 8: CreateRemoteThread
+  - 11: File Created
+  - 12,13,14: Registry Event
+  - 15: FileCreateStreamHash `ADS data creation`
+  - 22: DNS data event 
+- Download `https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon`
+- Install `Sysmon.exe -accepteula -i ..\Configuration\swift.xml`. `.xml` is the configuration file
+- Once installed, application log will be installed on `Applications and Services Logs/Microsoft/Windows/Sysmon/Operational`
+- Good Idea to filter out events actually, know your system first
+- To detect metasploit maybe look at using port 4444 `Get-WinEvent -Path Hunting_Metasploit.evtx -FilterXPath '*/System/EventID=3 and */EventData/Data[@Name="DestinationPort"] and */EventData/Data=4444'`
+- Since mimikatz injects to lsass.exe, For detecting mimikatz perhaps use `Get-WinEvent -PathHunting_Mimikatz.evtx -FilterXPath '*/System/EventID=10 and */EventData/Data[@Name="TargetImage"] and */EventData/Data="C:\Windows\system32\lsass.exe"'`
