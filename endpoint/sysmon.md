@@ -17,3 +17,5 @@
 - Good Idea to filter out events actually, know your system first
 - To detect metasploit maybe look at using port 4444 `Get-WinEvent -Path Hunting_Metasploit.evtx -FilterXPath '*/System/EventID=3 and */EventData/Data[@Name="DestinationPort"] and */EventData/Data=4444'`
 - Since mimikatz injects to lsass.exe, For detecting mimikatz perhaps use `Get-WinEvent -PathHunting_Mimikatz.evtx -FilterXPath '*/System/EventID=10 and */EventData/Data[@Name="TargetImage"] and */EventData/Data="C:\Windows\system32\lsass.exe"'`
+- For malware `Get-WinEvent -Path Hunting_Rats.evtx -FilterXPath '*/System/EventID=3 and */EventData/Data[@Name="DestinationPort"] and */EventData/Data=8080'`
+- For `Get-WinEvent -Path Detecting_RemoteThreads.evtx -FilterXPath '*/System/EventID=8'`
