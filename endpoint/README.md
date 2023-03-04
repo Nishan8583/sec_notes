@@ -192,7 +192,7 @@
         - Outbound TCP/IP connections.
 - Event Logs
   - Read with event viewr or `wevtutil.exe`  `https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/wevtutil`
-  - From powershell `Get-WinEvent`. `https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.diagnostics/Get-WinEvent?view=powershell-7.3&viewFallbackFrom=powershell-7.1`
+  - From powershell `Get-WinEvent`. `https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.diagnostics/Get-WinEvent?view=powershell-7.3&viewFallbackFrom=powershell-7.1`. use `-Path path_to_.evtx` to look from a custom file
   - Xpath. `Get-WinEvent -LogName Security -FilterXPath '*/EventData/Data[@Name="TargetUserName"]="System"' -MaxEvents 1`. See xml data in details
   - For xpath, starts with *.
   - Each element becomes a word. `<EventData>` becomes `/EventData`1
