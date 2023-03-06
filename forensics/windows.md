@@ -4,3 +4,30 @@
 - `HKEY_LOCAL_MACHINE`: Contains configuration information particular to the computer (for any user), `HKLM`
 - `HKEY_CLASSES_ROOT`:  contains file name extension associations and COM class registration information such as ProgIDs, CLSIDs, and IIDs. It is primarily intended for compatibility with the registry in 16-bit Windows
 - `HKEY_CURRENT_CONFIG`: Contains information about the hardware profile that is used by the local computer at system startup. 
+
+- Access using `regedit.exe`
+- Located in `C:\Windows\System32\Config`
+  - DEFAULT (mounted on HKEY_USERS\DEFAULT)
+  - SAM (mounted on HKEY_LOCAL_MACHINE\SAM)
+  - SECURITY (mounted on HKEY_LOCAL_MACHINE\Security)
+  - SOFTWARE (mounted on HKEY_LOCAL_MACHINE\Software)
+  - SYSTEM (mounted on HKEY_LOCAL_MACHINE\System)
+- Also in `C:\Users\<username>`
+  - NTUSER.DAT (mounted on HKEY_CURRENT_USER when a user logs in)
+  - USRCLASS.DAT (mounted on HKEY_CURRENT_USER\Software\CLASSES)
+- `C:\Windows\AppCompat\Programs\Amcache.hve`
+- Data acquisition using `KAPE`, `FTK Imager`.
+- Forensics Tools 
+  - `Registry Viewer` https://www.exterro.com (looks like its paid version now)
+  - `Zimmerman's Registry Explorer` https://ericzimmerman.github.io/#!index.md
+  - `RegRipper` (takes hive as input) https://github.com/keydet89/RegRipper3.0
+- Common system information information
+  - OS Version `SOFTWARE\Microsoft\Windows NT\CurrentVersion`
+  - Boot Up Control Set infos in Inside the `HKLM\SYSTEM\CurrentControlSet` `SYSTEM\ControlSet001` Control set that machine booted with. `SYSTEM\ControlSet002`  the last known good configuration. Also We can see which control set is being used by looking at registry value`SYSTEM\Select\Current` and `SYSTEM\Select\LastKnownGood`
+  - Computer name in `SYSTEM\CurrentControlSet\Control\ComputerName\ComputerName`
+  - Timezone info in `SYSTEM\CurrentControlSet\Control\TimeZoneInformation`
+  - Network interfaces are listed with unique GUID in `SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces`. There will info in each GUID field in the right pane
+  - Past networks that the computer connected to is in either `SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Signatures\Unmanaged`  or `SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Signatures\Managed`
+  - Info on comamnds/programs that runs when user logs on `NTUSER.DAT\Software\Microsoft\Windows\CurrentVersion\Run` `NTUSER.DAT\Software\Microsoft\Windows\CurrentVersion\RunOnce` `SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce` `SOFTWARE\Microsoft\Windows\CurrentVersion\policies\Explorer\Run` and `SOFTWARE\Microsoft\Windows\CurrentVersion\Run`.
+  - Information about users `SYSTEM\CurrentControlSet\Services`
+  - Sam HIVE user information `SAM\Domains\Account\Users`. user account information, login information, and group information
