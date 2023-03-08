@@ -26,3 +26,11 @@ And the location of each cluster on the disk is stored in the `File Allocation T
 
 # Recover deleted files
  - Use `autopsy`, deleted files will have red `x` mark on them, also create disk image and stuffs.
+
+# Evidence of Execution
+  - Prefetch file contains info of recently executed applications as well `C:\Windows\Prefetch` with .pf extension. Prefetch is used to quicky open recent application
+  - Use PEcmd.exe from Eric Zimmerman's tools  `PECmd.exe -f <path-to-Prefetch-files> --csv <path-to-save-csv>` or `PECmd.exe -d <path-to-Prefetch-directory> --csv <path-to-save-csv>`
+  - In windows 10, timeline information, info about recently used application info can be found in `C:\Users\<username>\AppData\Local\ConnectedDevicesPlatform\{randomfolder}\ActivitiesCache.db`.
+  - Use `Eric Zimmerman's WxTCmd.exe`, `WxTCmd.exe -f <path-to-timeline-file> --csv <path-to-save-csv>`
+  - Jumplists, Contains information about recently opened files by applications in taskbar. Location in `C:\Users\<username>\AppData\Roaming\Microsoft\Windows\Recent\AutomaticDestinations`.
+  - use Eric Zimmerman's `JLECmd.exe`. `JLECmd.exe -f <path-to-Jumplist-file> --csv <path-to-save-csv>`
