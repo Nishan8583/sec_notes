@@ -23,3 +23,6 @@ And the location of each cluster on the disk is stored in the `File Allocation T
  - `$UsnJrnl` the Update Sequence Number (USN) Journal. It is present in the `$Exten`d record. It contains information about all the files that were changed in the file system and the reason for the change. It is also called the change journal.
  - `**MFT Explorer**` Tool from https://ericzimmerman.github.io/#!index.md to help explore. `MFTECmd.exe -f <path-to-$MFT-file ex: C:/$MFT> --csv <path-to-save-results-in-csv>`. 
  - Tip, can view the output file with `EzViewer`. Also make sure u see hidden files in C:
+
+# Recover deleted files
+ - Use `autopsy`, deleted files will have red `x` mark on them, also create disk image and stuffs.
