@@ -46,6 +46,13 @@
   - ShimCache (AppCompatCache ) Application launched in application compability `SYSTEM\CurrentControlSet\Control\Session Manager\AppCompatCach`. Parse using different tool `AppCompatCacheParser.exe --csv <path to save output> -f <path to SYSTEM hive for data parsing> -c <control set to parse>`.
   - AmCache `C:\Windows\appcompat\Programs\Amcache.hve` `Amcache.hve\Root\File\{Volume GUID}\`
   - BAM/DAM Background Activity Monitor and Desktop Activity Monitor `SYSTEM\CurrentControlSet\Services\bam\UserSettings\{SID}` `SYSTEM\CurrentControlSet\Services\dam\UserSettings\{SID}`
+  ### Beyond registry
+  - Prefetch file contains info of recently executed applications as well `C:\Windows\Prefetch` with .pf extension. Prefetch is used to quicky open recent application
+  - Use PEcmd.exe from Eric Zimmerman's tools  `PECmd.exe -f <path-to-Prefetch-files> --csv <path-to-save-csv>` or `PECmd.exe -d <path-to-Prefetch-directory> --csv <path-to-save-csv>`
+  - In windows 10, info about recently used application info can be found in `C:\Users\<username>\AppData\Local\ConnectedDevicesPlatform\{randomfolder}\ActivitiesCache.db`.
+  - Use `Eric Zimmerman's WxTCmd.exe`, `WxTCmd.exe -f <path-to-timeline-file> --csv <path-to-save-csv>`
+  - Jumplists, Contains information about recently opened files by applications in taskbar. Location in `C:\Users\<username>\AppData\Roaming\Microsoft\Windows\Recent\AutomaticDestinations`.
+  - use Eric Zimmerman's `JLECmd.exe`. `JLECmd.exe -f <path-to-Jumplist-file> --csv <path-to-save-csv>`
 
 ## External Devices/USB device forensics
   - USB devices plugged into the system `SYSTEM\CurrentControlSet\Enum\USBSTOR` `SYSTEM\CurrentControlSet\Enum\USB`.  vendor id, product id, and version of the USB device 
