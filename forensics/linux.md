@@ -12,3 +12,12 @@
 - Name resolution `/etc/hosts`
 - `ps aux`
 - Network open sockets and stuffs `netstat -natp`
+- Cron jobs `/etc/crontab`
+- Startup services in `/etc/init.d d` directory.
+- `.bashrc` contains list of commands to be executed when user logs in.
+
+- sudo execution history `cat /var/log/auth.log* |grep -i COMMAND|tail`
+- `~/.bash_history`
+
+- `/var/log/syslog`
+- `cat /var/log/auth.log* |head`
