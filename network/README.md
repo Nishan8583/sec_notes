@@ -16,7 +16,7 @@
  - `event_type=="alert" | cut alert.category, alert.metadata.mitre_technique_name, alert.metadata.mitre_technique_id, alert.metadata.mitre_tactic_name | sort | uniq -c` see mitre metadata stuffs
 
 # zeek
- - formerly brim
+ - formerly bro
  - indepth logging and monitoring
  - has own scripting functionality
  - https://tryhackme-images.s3.amazonaws.com/user-uploads/6131132af49360005df01ae3/room-content/b94f413787763b1bdefe17c4bfb29782.png
