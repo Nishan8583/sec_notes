@@ -2,7 +2,7 @@
 1. For high level triaging
 2. First we need to create a script, the method we can use to create scripts is listed below, then run the audit script `RunRedlineAudit.bat` as admin. 
 3. `Standard Collector`: collects minimum methods for analysis, `Comprehensive Collector`: collects much data, `IOC Search Collector`: collects data matched on IOC editor i.e. data that matched the IOCs.
-4. Open `AnalysisSession1.mans` file by double clicking.
+4. Open `AnalysisSession1.mans` file by double clicking. It will be inside the `sessions` folder.
 5. Some key points to look at
   - System Information (machine, BIOS (Windows only), operating system, and user information.)
   - Process (Process Name, PID, Path, Arguments, Parent process, Username,)
