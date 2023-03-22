@@ -3,3 +3,9 @@
 - deploy frontend `./velociraptor-v0.5.8-linux-amd64 --config velociraptor.config.yaml frontend -v` default port is 8889
 - To add as client `velociraptor-v0.5.8-windows-amd64.exe --config velociraptor.config.yaml client -v`
 - Can query shell directly, result, logs
+- Click on client, click on +,new collection
+- vfs is server side cache of clients file, can use accessors (dedicate code to fetch file system information from endpoint)
+- For `VFS`, go to left. `nfs` for `ads`data
+- The query starts with a SELECT keyword, followed by a list of Column Selectors then the FROM keyword and a VQL Plugin potentially taking arguments. Finally we have a WHERE keyword followed by a filter expression.
+- `https://docs.velociraptor.app/vql_reference/basic/`
+- Forensics `https://docs.velociraptor.app/docs/forensic/`
