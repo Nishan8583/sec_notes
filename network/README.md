@@ -129,6 +129,7 @@ event zeek_done()
  - Some extra stuffs `Tools -> Credentials` and select a packet and `Tools -> Firewall ACL Rules`
  
 # Splunk
+### RECON Phase
  - Get data from index, do stats count on unique `src_ip`, `Requests` will be the column name holding count, passing that to sort which will do highest to lowest order
  - `index=<index_name> sourcetype=stream* | stats count(src_ip) as Requests by src_ip | sort - Requests`
  - You can pass the result of your query into function `table` which will create a table like kibana. syntax `table <field_name1> <field_name2>`
@@ -136,8 +137,17 @@ event zeek_done()
  - Regular expression `rex field=form_data "passwd=(?<creds>\w+)"`. Explaination, keyword `rex`, `field` holds name of field to perform regular expression on
  - then`"passwd=(?<creds>\w+)"` match the `\w+` and put it in a field `creds`. SO it will match `passwd=circus`, `creds` column will have `circus`
  - You need to use `table` function to make it pretty, like shown below
+### Exploitation Phase
  - `index=<index_name sourcetype=stream:http dest_ip="ip" http_method=POST form_data=*username*passwd* | rex field=form_data "passwd=(?<creds>\w+)"  | table src_ip creds`
  - `form_data=*username*passwd*` will display only the logs containing `username` and `password` string
  - You can chain multiple regex like this `|  rex field=form_data "passwd=(?<creds>\w+)" |  rex field=form_data "username=(?<user>\w+)"`
+### Installation Phase
+ - `index=botsv1 sourcetype=stream:http dest_ip="victim" *.exe`
+ - `index=botsv1 "mal.exe" sourcetype="XmlWinEventLog" EventCode=1`  for sysmon
+### Action On Objective
+ - `index=botsv1 src=victim_ip sourcetype=suricata dest_ip=attackers_ip` This could be starting point
+ - Look at alerts
+### CnC
+  - Look at odd domains/url
 ## Interensting links
  - https://securitylab.disi.unitn.it/lib/exe/fetch.php?media=teaching:netsec:2016:slides:t11:group2_-_ids_snort.pdf
