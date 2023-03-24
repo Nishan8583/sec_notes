@@ -128,5 +128,16 @@ event zeek_done()
  - For HTTPS, enable key log dump in browser, then, `Edit -> Protocol Preferences -> Pre Master ... -> TLS -> key log stuff`
  - Some extra stuffs `Tools -> Credentials` and select a packet and `Tools -> Firewall ACL Rules`
  
+# Splunk
+ - Get data from index, do stats count on unique `src_ip`, `Requests` will be the column name holding count, passing that to sort which will do highest to lowest order
+ - `index=<index_name> sourcetype=stream* | stats count(src_ip) as Requests by src_ip | sort - Requests`
+ - You can pass the result of your query into function `table` which will create a table like kibana. syntax `table <field_name1> <field_name2>`
+ - `index=<index_name> sourcetype=stream:http dest_ip="ip" http_method=POST uri="uri" | table _time uri src_ip dest_ip form_data`
+ - Regular expression `rex field=form_data "passwd=(?<creds>\w+)"`. Explaination, keyword `rex`, `field` holds name of field to perform regular expression on
+ - then`"passwd=(?<creds>\w+)"` match the `\w+` and put it in a field `creds`. SO it will match `passwd=circus`, `creds` column will have `circus`
+ - You need to use `table` function to make it pretty, like shown below
+ - `index=<index_name sourcetype=stream:http dest_ip="ip" http_method=POST form_data=*username*passwd* | rex field=form_data "passwd=(?<creds>\w+)"  | table src_ip creds`
+ - `form_data=*username*passwd*` will display only the logs containing `username` and `password` string
+ - You can chain multiple regex like this `|  rex field=form_data "passwd=(?<creds>\w+)" |  rex field=form_data "username=(?<user>\w+)"`
 ## Interensting links
  - https://securitylab.disi.unitn.it/lib/exe/fetch.php?media=teaching:netsec:2016:slides:t11:group2_-_ids_snort.pdf
