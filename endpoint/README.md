@@ -209,3 +209,5 @@
 # Some Notes
   - `WMIC.exe` can execute command on remote host
   - lookup event IDs for sysmon
+  - `lolbas-project.github.io/` lolbins for windows
+  - `certutil.exe` to download file
