@@ -550,6 +550,7 @@ The server generates a random number and sends it as a challenge to the client. 
   - `hashcat -m 18200 hash.txt Pass.txt`
   - Pass the ticket works by dumping the TGT from the LSASS memory of the machine. The Local Security Authority Subsystem Service (LSASS) is a memory process that stores credentials on an active directory server and can store Kerberos ticket along with other credential types to act as the gatekeeper and accept or reject the credentials provided
   - using mimikatz dump the ticket `sekurlsa::tickets /export` and then use the ticket `kerberos::ptt <ticket>` <ticket> = ticket file path
+  - Check if a system is part of domain `systeminfo | findstr Domain`
  - https://github.com/ThePacketBender/notes/blob/master/hashcat.examples.txt
 
 ## Machine notes
