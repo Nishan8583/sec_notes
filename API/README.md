@@ -1,0 +1,33 @@
+# API Security
+## Passive Recon
+- Gitub: https://github.com/ 
+- Postman Explore: https://www.postman.com/explore/apis
+- ProgrammableWeb API Directory: https://www.programmableweb.com/apis/directory 
+- APIs Guru: https://apis.guru/ 
+- Public APIs Github Project: https://github.com/public-apis/public-apis 
+- RapidAPI Hub: https://rapidapi.com/search/ 
+https://university.apisec.ai/products/api-penetration-testing/categories/2150259092/posts/2157852412
+- inurl:"/wp-json/wp/v2/users"
+- intitle:"index.of" intext:"api.txt"
+- inurl:"/api/v1" intext:"index of /"
+- github look for exposed keys
+- shodan
+- wayback for old documentations
+
+## Active Recon
+- nmap
+- gobuster
+- amass enum -active -d target-name.com |grep api
+- kiterunner
+- Browser devtools
+
+## Endpoint analysis
+- Postman, create a collection, start saving proxy, route browser traffic thru it, walk through the web app, save it.
+- Use mitmproxy
+- mitmpeoxy2swagger
+    - `$ mitmweb` starts the peoxy.
+    - Route traffic through it.
+    - Save flow
+    - `$sudo mitmproxy2swagger -i /Downloads/flows -o spec.yml -p http://crapi.apisec.ai -f flow`
+    - Use editer.swagger.io which would be helpful.
+    - 
