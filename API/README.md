@@ -37,3 +37,4 @@ https://university.apisec.ai/products/api-penetration-testing/categories/2150259
     - Also add `tests` (lets say to check if status is 200) and run entire colleciton at once, and see response.
     - Variables in request are in format `{{variable_name}}`, u can also set it by right click and set it.
     - Set `inherit auth from parent`.
+- OWASP, go through app, put spider on, then later turn attack mode on, and scan
