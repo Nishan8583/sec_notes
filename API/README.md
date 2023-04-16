@@ -30,4 +30,4 @@ https://university.apisec.ai/products/api-penetration-testing/categories/2150259
     - Save flow
     - `$sudo mitmproxy2swagger -i /Downloads/flows -o spec.yml -p http://crapi.apisec.ai -f flow`
     - Use editer.swagger.io which would be helpful.
-    - 
+    - To install mitmproxy2swagger, follow the guide `https://github.com/alufers/mitmproxy2swagger`. The python file will be installed in `~/.local/bin`
