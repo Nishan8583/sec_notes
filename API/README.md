@@ -33,3 +33,7 @@ https://university.apisec.ai/products/api-penetration-testing/categories/2150259
     - Run the command again with extra `--examples` in the end to add more information
     - To install mitmproxy2swagger, follow the guide `https://github.com/alufers/mitmproxy2swagger`. The python file will be installed in `~/.local/bin`
     - Now you can import the new spec.yml in `swagger` editor or `postman`
+    - Now the entire API stuff will be a colllection, edit collection to have `environment variables`, `scripts` to auto replace a string for fuzzing
+    - Also add `tests` (lets say to check if status is 200) and run entire colleciton at once, and see response.
+    - Variables in request are in format `{{variable_name}}`, u can also set it by right click and set it.
+    - Set `inherit auth from parent`.
