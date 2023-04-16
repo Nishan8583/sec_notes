@@ -28,6 +28,8 @@ https://university.apisec.ai/products/api-penetration-testing/categories/2150259
     - `$ mitmweb` starts the peoxy.
     - Route traffic through it.
     - Save flow
-    - `$sudo mitmproxy2swagger -i /Downloads/flows -o spec.yml -p http://crapi.apisec.ai -f flow`
-    - Use editer.swagger.io which would be helpful.
+    - `$sudo mitmproxy2swagger -i /Downloads/flows -o spec.yml -p http://crapi.apisec.ai -f flow` This will first capture everything and save in spec.yaml
+    - Change it to remove `ignore:` for the things we want.
+    - Run the command again with extra `--examples` in the end to add more information
     - To install mitmproxy2swagger, follow the guide `https://github.com/alufers/mitmproxy2swagger`. The python file will be installed in `~/.local/bin`
+    - Now you can import the new spec.yml in `swagger` editor or `postman`
