@@ -1,0 +1,1 @@
+1. From machine `Busqueda`. Look for version vulnerability, Space is denoded by "%2b", Look at git configs they might have configs, in python code, the code ran "./full-checkup.sh" while taking "full-checkup", so i could git clone in seperate directory, change full-checkup.sh and ran my own code.
