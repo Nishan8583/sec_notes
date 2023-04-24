@@ -382,7 +382,8 @@ run in victims machine
 - get capabilites `getcap -r / 2>/dev/null`
 
 # Windws prov sec
-1. Saved passwords
+NOTE: Checkout winpeas
+1. Saved passwords (Search for pwoershell history in `ConsoleHost_history.txt` at C:\Users\username\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadline )
 ## when mass deployed
 C:\Unattend.xml
 C:\Windows\Panther\Unattend.xml
