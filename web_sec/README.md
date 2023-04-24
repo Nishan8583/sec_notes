@@ -564,6 +564,8 @@ The server generates a random number and sends it as a challenge to the client. 
  - ` ssh paradox@10.10.35.239 -i paradox 2049:localhost:2049` port forwarding if local mounting is not allowed
  - `mount -t nfs localhost:/ nfs/` after mounting locally
  
+## Impacket
+ - python3 mssqlclient.py ARCHETYPE/sql_svc@{TARGET_IP} -windows-auth
 # Blue team notes
  - yara <path to specific yara rule file> target
  - python loki.py -p .  (loki is an alternative)
