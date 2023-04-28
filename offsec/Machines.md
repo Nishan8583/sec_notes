@@ -48,6 +48,8 @@ Connection closed by foreign host.
 2. not all are hashes ACME-TEST$:1008:aad3b435b51404eeaad3b435b51404ee:5ff44baab48ef90b6a2eccc1786d0dd9::: :5... is hash, use online crackstation?
 3. search -f <filename> in meterpreter
 4. command `background` to get out of session, and use post/... modules
+5. Payload types, `Non staged` -> sends all shell code at once, large, wont always work (ex: linux/meterpreter_reverse_tcp), the `meterpreter_` in front
+6. The other one is `staged`, sends payload in stages, less stable, `linux/meterpreter/reverse_tcp`, the `meterpreter/` in the beginnning.
 
 ### Linux Privilege Escalation
  - `sudo -l`
