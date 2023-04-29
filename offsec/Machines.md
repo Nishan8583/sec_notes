@@ -64,6 +64,7 @@ Connection closed by foreign host.
     Linux Smart Enumeration: https://github.com/diego-treitos/linux-smart-enumeration
     
     Linux Priv Checker: https://github.com/linted/linuxprivchecker 
+- `find / -group <grou_name> 2>/dev/null` Find if the group u are in has any interesting binaries associated with it.
 
 - Use GTFO bin, look at how they can be used to escape. https://gtfobins.github.io/  
 - if u have sudo permission to somethings
