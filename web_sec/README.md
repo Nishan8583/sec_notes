@@ -616,3 +616,52 @@ RECONFIGURE;`
  - ssdeep compare hashes between two files, and their similarity percentage using fuzzy hashes. A fuzzy hash is a Context Triggered Piecewise Hash (CTPH). This hash is calculated by dividing a file into pieces and calculating the hashes of the different pieces. https://ssdeep-project.github.io/ssdeep/index.html
  - capa does a little bit of triage automation https://github.com/mandiant/capa
  - pestudio some automated analysis in PE header
+
+
+# Common Bypass Techniques
+ - String terminators
+%00
+
+0x00
+
+//
+
+;
+
+%
+
+!
+
+?
+
+[]
+
+%5B%5D
+
+%09
+
+%0a
+
+%0b
+
+%0c
+
+%0e
+ - Example usage:
+`POST /api/v1/user/profile/update
+
+[…]
+
+ 
+
+{
+
+“uname”: “hapihacker”
+
+“pass”: "%00'OR 1=1"
+
+}`
+	
+ - case switching
+ - Encoding payloads
+ - Wfuzz has different payload encoding options like, `base64`
