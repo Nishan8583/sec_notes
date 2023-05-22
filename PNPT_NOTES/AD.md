@@ -11,3 +11,11 @@
  - Needs lot of traffic, so run first thing. 
  - `sudo ./test/bin/python Responder.py -I vboxnet0 -rdwv`
  - `hashcat -m 5600 hash.txt rockyou.txt`
+
+# SMB relay
+ - Instead of cracking hash, just pass in the hash directly.
+ - To find devices with smbsigning disabled `nmap --script=smb2-security-mode.nse -p445 <network>/24`.
+ - Usually servers have smb signing enabled and required, but hosts will have smb signing enabled but not required.
+ - Needs SMB signing to be disabled (SMB signing disabled means machine does not check where the hash came from), relayed creds must have admin priv on machine.
+ - Turn off SMB and HTTP, we don't want to respond, listen on rsponder for hashes.
+ - use ntlmrelayx `python ntlmrelayx -tf targets.txt -smb2support`. targets.txt will have IPs of victims.
