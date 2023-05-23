@@ -45,6 +45,17 @@
  - https://gist.github.com/HarmJ0y/184f9822b195c52dd50c379ed3117993
  - Execute ps1 script, it will be loaded, run commands.
 
+### BloodHound
+ - Bloodhound, helps us visualize AD data.
+ - `sudo apt install bloodhound`.
+ - It depends on neo4j, so set up console, `sudo neo4j console`, Connect to WEBUI, login `neo4j`, same user and password, change the password.
+ - In terminal `bloodhound`.
+ - On Windows machine, install consumer https://github.com/BloodHoundAD/BloodHound/tree/master/Collectors
+ - Run it `.\SharpHound.exe --collectionMethods All --domain Marvel.local --zipFileName file.zip`
+ - Upload filze.ip to BloodHound.
+ - Queries, Theres perbuilt query tab.
+
+
 # Background
  - Windows domain is a group of users and computers under the administration of a given business
  - Active Directory acts as a catalogue that holds the information of all of the "objects" that exist on your network.
