@@ -41,3 +41,6 @@
  - Other open ports?
 
 # Post Compromise Enumeration
+ - https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/PowerView.ps1
+ - https://gist.github.com/HarmJ0y/184f9822b195c52dd50c379ed3117993
+ - Execute ps1 script, it will be loaded, run commands.
