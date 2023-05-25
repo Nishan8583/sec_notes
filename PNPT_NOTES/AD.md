@@ -89,7 +89,7 @@
    - 4. Server responds with TGS for that service with service accounts HASH.
    - Tool to use for it. `GetUserSPNs.py MARVEL.local/fcastle:Password1 -dc-ip <IP> -request`.
    - Responds with maybe sql service hash, crack it. module is `13100`.
-  
+  - 
 # Background
  - Windows domain is a group of users and computers under the administration of a given business
  - Active Directory acts as a catalogue that holds the information of all of the "objects" that exist on your network.
