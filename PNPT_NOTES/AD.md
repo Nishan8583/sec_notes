@@ -75,7 +75,9 @@
    - `load incognito`
    - `list_tokens -u`
    - `impersonate_token marvel\\fcastle` impersonating domain\\user 
+   - If u wanna go back to old user `rev2self`.
  - Tip use exploit/windows/smb/psexec, set smb options, and test lab there.
+ - Delegate token, user token must be logged in. Token exists until machine is rebooted.
 
 # Background
  - Windows domain is a group of users and computers under the administration of a given business
