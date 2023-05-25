@@ -66,7 +66,17 @@
  - If not on kali and other distro, snap has crackmapexec. `snap install crackmapexec`
  - Mitigations `Limit account reuse`, `Strong passwords`, `PAM (Privilige Access Management)`
  
- 
+### Token Impersonation
+ - Tokens are keys that allow access to system/network.
+ - `Delegate`: Created for logging into a machine or using Remote Desktop.
+ - `Impersonate`: non interactive such as attaching a network drive or a domain logon script.
+ - Token impersonation, is using token of another user, good for privilige escalation.
+ - Following are steps in `meterpreter`
+   - `load incognito`
+   - `list_tokens -u`
+   - `impersonate_token marvel\\fcastle` impersonating domain\\user 
+ - Tip use exploit/windows/smb/psexec, set smb options, and test lab there.
+
 # Background
  - Windows domain is a group of users and computers under the administration of a given business
  - Active Directory acts as a catalogue that holds the information of all of the "objects" that exist on your network.
