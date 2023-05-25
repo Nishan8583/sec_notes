@@ -80,6 +80,16 @@
  - Delegate token, user token must be logged in. Token exists until machine is rebooted.
  - Mitigations `Limit token creation permissions`, `Account teiring`, `Local admin rectriction (users not local admin)`
 
+### Kerberoasting
+ - Kerberoasting is a post-exploitation attack technique that attempts to crack the password of a service account within the Active Directory (AD). In such an attack, an adversary masquerading as an account user with a service principal name (SPN) requests a ticket, which contains an encrypted password, or Kerberos.
+ - Actual steps that take place:
+   - 1. Client sequests TGT by providing its NTLM hash.
+   - 2. Server responds with TGT, encrypted, and KRBGT hash.
+   - 3. Client requests TGS for a service, but provides its own TGT.
+   - 4. Server responds with TGS for that service with service accounts HASH.
+   - Tool to use for it. `GetUserSPNs.py MARVEL.local/fcastle:Password1 -dc-ip <IP> -request`.
+   - Responds with maybe sql service hash, crack it. module is `13100`.
+  
 # Background
  - Windows domain is a group of users and computers under the administration of a given business
  - Active Directory acts as a catalogue that holds the information of all of the "objects" that exist on your network.
