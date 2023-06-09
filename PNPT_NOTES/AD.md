@@ -55,7 +55,7 @@
  - Upload filze.ip to BloodHound.
  - Queries, Theres perbuilt query tab.
 
-# Post Compromise Attacls
+# Post Compromise Attacks
 ### Pass the hash attack/Pass the password attack
  - `crackmapexec smb <network>/24 -u username -d <domain_Name> -p <password>`
  - Or if u have hash from hashdump, take last bit of dump "...:hash:::" `crackmapexec smb <network>/24 -u username -H <hash> --local`
@@ -89,7 +89,16 @@
    - 4. Server responds with TGS for that service with service accounts HASH.
    - Tool to use for it. `GetUserSPNs.py MARVEL.local/fcastle:Password1 -dc-ip <IP> -request`.
    - Responds with maybe sql service hash, crack it. module is `13100`.
-  - 
+
+### GPP/cPassword Attacks
+ - Group Policy Prefences allowed admins to create policies with embeded credentials.
+ - Credentials were encrypted and stored in "cPassword".
+ - The key was accidentally released.
+ - Patched in MS14-025, but if stored before patch, still vulnerable.
+ - In metasploit, if u have shell, run `smb_enum_gpp`
+ - In sysvol user, `Groups.xml`.
+ - `gpp-decrypt <cPassword>`.
+ - Reference: https://blog.rapid7.com/2016/07/27/pentesting-in-the-real-world-group-policy-pwnage/ 
 # Background
  - Windows domain is a group of users and computers under the administration of a given business
  - Active Directory acts as a catalogue that holds the information of all of the "objects" that exist on your network.
