@@ -47,4 +47,11 @@
     - ![Images not found](method_8.jpg)
     - ![Images not found](method_9.jpg)
     - Spidering, ZAP (attack and spider), Burp (crawl), CLI [hackrawler](https://github.com/hakluke/hakrawler), [GOSpider](https://github.com/jaeles-project/gospider)
-    - 
+    - Javascript, find js in a domains.
+       - [xLinkFinder](https://github.com/xnl-h4ck3r/xnLinkFinder).
+    - Parameter Analysis
+       - [Most Common Vuln Statistically](https://github.com/bugcrowd/HUNT/blob/master/Burp/conf/issues.json).
+       - [Similar to above](https://github.com/1ndianl33t/Gf-Patterns).
+    - Heat Mapping
+       - Where things might go bad. spidy sense?
+       - ![Image Not Found](method_10.jpg).
