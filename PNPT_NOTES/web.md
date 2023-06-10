@@ -9,7 +9,7 @@
  - Note taking [Notion](https://www.notion.so/product?utm_source=google&utm_campaign=2075789710&utm_medium=85296177508&utm_content=375601142135&utm_term=notion%20note%20taking&targetid=kwd-797574517654&gclid=CjwKCAjwvpCkBhB4EiwAujULMm7EZtyyKVJZLAbY--cOpqcbxQ8OqEKuhHD8KN9RPh3PzQql18wJjxoCcm8QAvD_BwE).
 
 # Methodology.
- - Notes from this talk [Youtube Video][https://www.youtube.com/watch?v=FqnSAa2KmBI&t=1624s&ab_channel=HackerOne]
+ - Notes from this talk [Youtube Video](https://www.youtube.com/watch?v=FqnSAa2KmBI&t=1624s&ab_channel=HackerOne]).
  - ![Image not found](method_1.jpg?raw=true "Methodology")
  - What tehcnology is being used Whatrun, Whatweb, Wappalyzer
  - Nuclei to find CVEs, Look at tweets, your own tweetdeck and create custom templates.
