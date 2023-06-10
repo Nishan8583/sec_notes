@@ -3,9 +3,10 @@
  - `amass enum -d domain.com`
  - `cat domains | httprobe -s -p https:443` to ensure the domain is alive.
  - test, dev, admin domain would be interesting.
- - `gowitness` screenshot of website, wohoooo. https://github.com/sensepost/gowitness .
- - The script https://pastebin.com/MhE6zXVt
+ - `gowitness` screenshot of website, wohoooo. [GoWitness](https://github.com/sensepost/gowitness).
+ - [TCM script](https://pastebin.com/MhE6zXVt)
  - Use the excel checklist as well [OWASP LINK](https://github.com/tanprathan/OWASP-Testing-Checklist) . Added here [CheckList](OWASP_WSTG_Checklist.xlsx).
+ - Note taking [Notion](https://www.notion.so/product?utm_source=google&utm_campaign=2075789710&utm_medium=85296177508&utm_content=375601142135&utm_term=notion%20note%20taking&targetid=kwd-797574517654&gclid=CjwKCAjwvpCkBhB4EiwAujULMm7EZtyyKVJZLAbY--cOpqcbxQ8OqEKuhHD8KN9RPh3PzQql18wJjxoCcm8QAvD_BwE).
 
 # Methodology.
  - Notes from this talk [Youtube Video][https://www.youtube.com/watch?v=FqnSAa2KmBI&t=1624s&ab_channel=HackerOne]
