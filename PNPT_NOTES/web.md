@@ -5,7 +5,7 @@
  - test, dev, admin domain would be interesting.
  - `gowitness` screenshot of website, wohoooo. https://github.com/sensepost/gowitness .
  - The script https://pastebin.com/MhE6zXVt
- - Use the excel checklist as well https://github.com/tanprathan/OWASP-Testing-Checklist 
+ - Use the excel checklist as well [OWASP LINK](https://github.com/tanprathan/OWASP-Testing-Checklist) . Added here [CheckList](OWASP_WSTG_Checklist.xlsx).
 
 # Methodology.
  - Notes from this talk [Youtube Video][https://www.youtube.com/watch?v=FqnSAa2KmBI&t=1624s&ab_channel=HackerOne]
@@ -37,3 +37,14 @@
     - Do recursion as well.
     - [apkleaks](https://github.com/dwisiswant0/apkleaks) Grab URLS from apks.
     - Be updated on the changes they made subscribe to news letter, https://changedetection.io , new features. confrences talks.
+ - Application Analysis
+    - ![Image not found](method_3.jpg)
+    - Six big questions
+    - ![Image not found](method_4.jpg) 
+    - ![Image not found](method_5.jpg)
+    - ![Image not found](method_6.jpg) 
+    - Contextual threat ![Image not found](method_7.jpg)
+    - ![Images not found](method_8.jpg)
+    - ![Images not found](method_9.jpg)
+    - Spidering, ZAP (attack and spider), Burp (crawl), CLI [hackrawler](https://github.com/hakluke/hakrawler), [GOSpider](https://github.com/jaeles-project/gospider)
+    - 
