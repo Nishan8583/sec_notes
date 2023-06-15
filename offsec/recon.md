@@ -17,3 +17,7 @@ db query inser domains
 modules load ....
 run
 `
+
+
+# C2
+- Armitage is GUI for metasploit.
