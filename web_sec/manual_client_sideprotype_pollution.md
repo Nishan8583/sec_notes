@@ -1,4 +1,6 @@
 # Client Side
+https://portswigger.net/web-security/prototype-pollution/client-side/lab-prototype-pollution-dom-xss-via-an-alternative-prototype-pollution-vector
+
 In your browser, try polluting Object.prototype by injecting an arbitrary property via the query string:
 
 /?__proto__[foo]=bar
