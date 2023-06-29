@@ -1,6 +1,8 @@
 # Server Side prototype Pollution
  - Difficult to detect cause its on server.
- - unsafely merges user-controllable input into a server-side JavaScript object
+ - unsafely merges user-controllable input into a server-side JavaScript object.
+
+### Detecting server-side prototype pollution via `polluted property reflection`.
  - for...in loop iterates over all of an object's enumerable properties, including ones that it has inherited via the prototype chain.
 ```
 const myObject = { a: 1, b: 2 };
@@ -128,3 +130,62 @@ Content-Length: 208
 {"username":"wiener","firstname":"Peter","lastname":"Wiener","address_line_1":"Wiener HQ","address_line_2":"One Wiener Way","city":"Wienerville","postcode":"BU1 1RP","country":"UK","isAdmin":true,"foo":"bar"}
 ```
  - `isAdmin` is set to true.
+
+
+### Detecting server-side prototype pollution `without polluted property reflection`
+ - Try injecting properties that match potential configuration options for the server.
+ - You can then compare the server's behavior before and after the injection to see whether this configuration change appears to have taken effect.
+
+##### Status code override
+ - JavaScript frameworks like Express allow developers to set custom HTTP response statuses.
+```
+HTTP/1.1 200 OK
+...
+{
+    "error": {
+        "success": false,
+        "status": 401,
+        "message": "You do not have permission to access this resource."
+    }
+}
+```
+ - http-errors module has this error.
+```
+function createError () {
+    //...
+    if (type === 'object' && arg instanceof Error) {
+        err = arg
+        status = err.status || err.statusCode || status
+    } else if (type === 'number' && i === 0) {
+    //...
+    if (typeof status !== 'number' ||
+    (!statuses.message[status] && (status > 400 || status >= 600))) {
+        status = 500
+    }
+    //...
+```
+1. Find a way to trigger an error response and take note of the default status code.
+2 . Try polluting the prototype with your own `**status**` property. Be sure to use an obscure status code that is unlikely to be issued for any other reason.
+3. Trigger the error response again and check whether you've successfully overridden the status code.
+ - You must choose a status code in the 400-599 range
+
+##### JSON spaces override
+ - The Express framework provides a json spaces option, which enables you to configure the number of spaces used to indent any JSON data in the response.
+ - If you've got access to any kind of JSON response, you can try polluting the prototype with your own json spaces property.
+ - Fixed in Express 4.17.4.
+
+##### Charset override
+```
+{
+    "sessionId":"0123456789",
+    "username":"wiener",
+    "role":"default",
+    "__proto__":{
+        "content-type": "application/json; charset=utf-7"
+    }
+}
+```
+ - Is that character encoding being used?
+ - See more details in https://portswigger.net/web-security/prototype-pollution/server-side .
+
+ - https://portswigger.net/research/server-side-prototype-pollution
