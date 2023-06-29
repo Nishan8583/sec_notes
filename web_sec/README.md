@@ -1,5 +1,6 @@
 Helpful resources
- - https://gowthams.gitbook.io/bughunter-handbook/
+ - https://gowthams.gitbook.io/bughunter-handbook/  (quick reference)
+ - https://exploit-notes.hdks.org (quick reference) 
  - https://portswigger.net/web-security/dashboard
 # METHODOLOGY
 1. Look at the available scopes
