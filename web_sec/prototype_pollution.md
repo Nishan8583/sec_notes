@@ -28,6 +28,12 @@ console.log("Before assigning to a look at b proto",b.__proto__)
 a.__proto__={"hidden_foo":"hidden_bar"}
 console.log("a has hidden proto",a.__proto__);
 console.log("Due to unsafe merging b also has it",b.__proto__)
+
+// OUTPUT
+Before assigning to a look at b proto [Object: null prototype] {}
+a has hidden proto { hidden_foo: 'hidden_bar' }
+Due to unsafe merging b also has it { hidden_foo: 'hidden_bar' }
+
 ```
   -  Successful exploitation of prototype pollution requires the following key components:
     - A prototype pollution source - This is any input that enables you to poison prototype objects with arbitrary properties. Commonly, URL, JSON input, web messages
