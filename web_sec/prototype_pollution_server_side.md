@@ -1,4 +1,5 @@
 # Server Side prototype Pollution
+ - Extension to help `https://portswigger.net/bappstore/c1d4bd60626d4178a54d36ee802cf7e8`
  - Difficult to detect cause its on server.
  - unsafely merges user-controllable input into a server-side JavaScript object.
 
@@ -189,3 +190,4 @@ function createError () {
  - See more details in https://portswigger.net/web-security/prototype-pollution/server-side .
 
  - https://portswigger.net/research/server-side-prototype-pollution
+ - Burp extension `https://portswigger.net/bappstore/c1d4bd60626d4178a54d36ee802cf7e8`
