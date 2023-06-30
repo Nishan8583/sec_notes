@@ -18,6 +18,16 @@
   - https://portswigger.net/web-security/prototype-pollution
   -  Prototype pollution vulnerabilities typically arise when a JavaScript function recursively merges an object containing user-controllable properties into an existing object, without first sanitizing the keys.
   -  Due to the special meaning of `__proto__` in a JavaScript context, the merge operation may assign the nested properties to the object's prototype instead of the target object itself. As a result, the attacker can pollute the prototype with properties containing harmful values, which may subsequently be used by the application in a dangerous way. This can allow an attacker to inject a property with a key like __proto__, along with arbitrary nested properties.
+```
+b = {"foo":"bar"}
+a = b
+
+
+console.log("Before assigning to a look at b proto",b.__proto__)
+a.__proto__={"hidden_foo":"hidden_bar"}
+console.log("a has hidden proto",a.__proto__);
+console.log("Due to unsafe merging b also has it",b.__proto__)
+```
   -  Successful exploitation of prototype pollution requires the following key components:
     - A prototype pollution source - This is any input that enables you to poison prototype objects with arbitrary properties. Commonly, URL, JSON input, web messages
     - A sink - In other words, a JavaScript function or DOM element that enables arbitrary code execution.
