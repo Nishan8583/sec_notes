@@ -1,7 +1,8 @@
 ### Prototype Pollution
   - https://portswigger.net/web-security/prototype-pollution/javascript-prototypes-and-inheritance
   - Objects in js is key value pair
-  - ```const user =  {
+  - ```
+    const user =  {
     username: "wiener",
     userId: 01234,
     exampleMethod: function(){
