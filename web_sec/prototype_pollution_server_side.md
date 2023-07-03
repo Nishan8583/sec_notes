@@ -213,3 +213,11 @@ Flawed bypass
 }
 ```
  - The NODE_OPTIONS environment variable enables you to define a string of command-line arguments that should be used by default whenever you start a new Node process. As this is also a property on the env object, you can potentially control this via prototype pollution if it is undefined.
+ - Methods such as `child_process.spawn()` and `child_process.fork()` enable developers to create new Node subprocesses.
+ - `fork()` method accepts an options object in which one of the potential options is the execArgv property.
+```
+"execArgv": [
+    "--eval=require('<module>')"
+]
+```
+ - In addition to `fork()`, the child_process module contains the `execSync()` method, which executes an arbitrary string as a system command.
