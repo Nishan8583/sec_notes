@@ -75,6 +75,18 @@
  - inQL burp plugin.
  - Suggesstions ? https://github.com/nikitastupin/clairvoyance
 
+### Bypassing GraphQL introspection defences
+ - When developers disable introspection, they could use a regex to exclude the __schema keyword in queries. You should try characters like spaces, new lines and commas, as they are ignored by GraphQL but not by flawed regex.
+ - Alternate method?
+```
+ #Introspection query with newline
+
+    {
+        "query": "query{__schema
+        {queryType{name}}}"
+    }
+```
+
 ### LABS
 ##### Lab: Accessing private GraphQL posts
  - Looked at http history, sent data to inQL, Type the full URL in inQL scanner, I see
