@@ -74,4 +74,23 @@
  - Use introspection query. full query at https://portswigger.net/web-security/graphql.
  - inQL burp plugin.
  - Suggesstions ? https://github.com/nikitastupin/clairvoyance
- - 
+
+### LABS
+##### Lab: Accessing private GraphQL posts
+ - Looked at http history, sent data to inQL, Type the full URL in inQL scanner, I see
+```
+query {
+	getBlogPost(id:1334) {
+		date
+		summary
+		image
+		author
+		isPrivate
+		title
+		paragraphs
+		id
+		postPassword
+	}
+}
+```
+ -  `postPassword` is unique field, so turbo intruder with `postPassword` added to graphql fields, get the password.
