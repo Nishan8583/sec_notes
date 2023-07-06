@@ -1,0 +1,11 @@
+### Server Side Template Injection
+ - See where user supplied data is being reflected
+ - Send fuzzing data usually {{<%[%'"}}%\]>}} or use the payload listed belows, use ffuf maybe?,but if response appears in another page, no use, only if same place resposne appears then ffuf can be of use
+ - If found, read about template engine/secuirty implication sections
+ - get idea of different objects and functions
+ - Some templates and their SSTI: https://github.com/GoSecure/template-injection-workshop
+ - Pentest Sheet: https://cobalt.io/blog/a-pentesters-guide-to-server-side-template-injection-ssti
+ - Dgango specific: https://lifars.com/wp-content/uploads/2021/06/Django-Templates-Server-Side-Template-Injection-v1.0.pdf
+ - Payloads: https://github.com/swisskyrepo/PayloadsAllTheThings
+ - good lab: https://gosecure.github.io/template-injection-workshop/#7
+ - object chaining: ${ product.getClass().getProtectionDomain().getCodeSource().getLocation().toURI().resolve("/home/carlos/my_password.txt").toURL().openStream().readAllBytes()?join(" ") }

