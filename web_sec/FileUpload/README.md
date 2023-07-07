@@ -22,3 +22,4 @@ Content-Type: image/jpeg
 Content-Disposition: form-data; name="image"; filename="../../example.php"
 ```
  - If there is directory traversal vulnerability there we might be able to execute it.
+ - In server response if `../` is stripped, try obfuscating `..%2fexploit.php`.
