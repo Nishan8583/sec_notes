@@ -23,3 +23,8 @@ Content-Disposition: form-data; name="image"; filename="../../example.php"
 ```
  - If there is directory traversal vulnerability there we might be able to execute it.
  - In server response if `../` is stripped, try obfuscating `..%2fexploit.php`.
+
+### Insufficient blacklisting of dangerous file types
+##### Overriding the server configuration
+ - Websevers can look at local directory configuration to override global config, for apache `.htaccess`. `AddType application/x-httpd-php .l33t`. Maps extension `.l33t` to `application/x-httpd-php` module.
+ - Try to upload `.htacess` and then `shell.php`
