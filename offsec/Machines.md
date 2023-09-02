@@ -83,7 +83,8 @@ run in victims machine
  - Check for any cronjob, that we can manipulate
  - check its sudo permissions `sudo -l`
 - get capabilites `getcap -r / 2>/dev/null`
-
+- Check if u can get another user ssh key
+- THen. `usr/share/john/ssh2john.py ./key.key > hash`, then `john hash --wordlist=rockyou.txt`
 ### Windws priv sec
 NOTE: Checkout winpeas
 1. Saved passwords (Search for pwoershell history in `ConsoleHost_history.txt` at C:\Users\username\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadline )
