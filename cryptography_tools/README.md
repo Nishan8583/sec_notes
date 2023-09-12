@@ -1,0 +1,15 @@
+# Common tools to use
+ - `gpg --symmetric --cipher-algo CIPHER message.txt` to encrypt.
+ - `gpg -d file.txt.gpg` to decrypt.
+ - https://tutonics.com/articles/gpg-encryption-guide-part-4-symmetric-encryption/
+ - `openssl aes-256-cbc -e -in message.txt -out encrypted_message`
+ - `openssl aes-256-cbc -d -in encrypted_message -out original_message.txt`
+ - https://tryhackme.com/room/cryptographyintro
+ - `openssl genrsa -out private-key.pem 2048` generate a key.
+ - `openssl rsa -in private-key.pem -pubout -out public-key.pem` to see details of a key.
+ - `openssl pkeyutl -encrypt -in plaintext.txt -out ciphertext -inkey public-key.pem -pubin` to encrypt.
+ - `openssl pkeyutl -decrypt -in ciphertext -inkey private-key.pem -out decrypted.txt` to decrypt.
+ - `hmac256 s!Kr37 message.txt` for hmac with key.
+ - `openssl req -new -nodes -newkey rsa:4096 -keyout key.pem -out cert.csr` create a certificate request.
+ - `openssl x509 -in cert.pem -text` to see certificate details.
+ - Tryhackme lab is pretty solid.
