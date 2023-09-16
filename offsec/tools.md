@@ -11,3 +11,14 @@
  - `Tools -> Spider`
  - `Analyze -> Scan Policy Manager` remove the things u do not want to scan for, like if no DB, why SQL scanning?
  - see https://tryhackme.com/room/dastzap for authenticated scan details.
+
+### Redis
+ - `sudo apt install redis-tools`
+ - `redis-cli -h {target_IP}`
+ - `info`
+ - `select 0` select db with index number.
+ - `keys *`, list keys.
+ - `get <key>`.
+
+### xfreerdp
+ - `xfreerdp /u:administrator  /v:10.129.1.13` try to connect without password.
