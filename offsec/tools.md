@@ -22,3 +22,14 @@
 
 ### xfreerdp
  - `xfreerdp /u:administrator  /v:10.129.1.13` try to connect without password.
+
+### gobuster
+ - `gobuster dir -u 10.129.145.11 -w ~/SecLists/Discovery/Web-Content/common.txt`
+
+### mongo
+ - ./mongo mongodb://{target_IP}:27017
+ - help
+ - show dbs;
+ - use <db_name>;
+ - show collections;
+ - db.<collection_name>.find().pretty();
