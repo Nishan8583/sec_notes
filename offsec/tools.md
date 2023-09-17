@@ -33,3 +33,8 @@
  - use <db_name>;
  - show collections;
  - db.<collection_name>.find().pretty();
+
+### rsync
+ - `rsync --list-only 10.129.204.156::` list directories.
+ - `rsync --list-only 10.129.204.156::public` list files within directory, here named public.
+ - `rsync {target_IP}::public/flag.txt flag.txt` bring remote flag.txt in my machine.
