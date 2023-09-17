@@ -1,3 +1,4 @@
+https://cloud.hacktricks.xyz/welcome/readme
 # RECON
 1. Passive and Active
 2. `whois`, `nslookup`, `dig`
