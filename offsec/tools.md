@@ -1,4 +1,10 @@
 # Tools
+Helpful resources
+ - https://gowthams.gitbook.io/bughunter-handbook/  (quick reference)
+ - https://exploit-notes.hdks.org (quick reference) 
+ - https://portswigger.net/web-security/dashboard
+ - https://cloud.hacktricks.xyz/welcome/readme
+ - https://gtfobins.github.io/gtfobins/vi/#sudo
 ### Metasploit
  - use `exploit/...`
  - `show options`
