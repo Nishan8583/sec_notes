@@ -63,3 +63,6 @@
 ### John
  - `zip2john backup.zip > zip.hashes` dumps hashes to file.
  - `john zip.hashes` cracks the password.
+
+### Hashcat
+ - `hashcat -a 0 -m 0 admin_hash.txt /usr/share/wordlists/rockyou.txt`
