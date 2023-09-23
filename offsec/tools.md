@@ -54,8 +54,12 @@
 ### SSH tunneling
  - `ssh -L 1234:localhost:5432 christine@{target_IP}` locally we will be listening to 1234
 
-## SMB
+### SMB
  - `smbclient \\\\10.10.10.131\\ADMIN$ -U Administrator` list.
  - `smbclient -L 10.129.27.203 -U administrator`.
  - `python psexec.py username:password@hostIP`.
  -  `psexec.py administrator@10.10.10.131`.
+
+### John
+ - `zip2john backup.zip > zip.hashes` dumps hashes to file.
+ - `john zip.hashes` cracks the password.
