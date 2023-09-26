@@ -74,9 +74,11 @@ Helpful resources
  - `hashcat -a 0 -m 0 admin_hash.txt /usr/share/wordlists/rockyou.txt` crack md5.
  - `hashcat -m 5600 hash.txt rockyou.txt` crach ntlm.
 
+## Scanning
 ### nmap
  - `nmap --script=smb2-security-mode.nse -p445 <network>/24` find devices with smb signing disabled.
-
+### Rustscan
+ - `./rustscan -a 10.129.95.185 -r 1-65535` maybe use rustscan to find open ports first, and then use nmap for service detection and stuff.
 ### sqlmap
  - `sqlmap -u "http://10.129.29.21/dashboard.php?search=%27" --cookie="PHPSESSID=f0mn05nbrdadh5164gavl9q4un"`
 
