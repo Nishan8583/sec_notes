@@ -94,4 +94,10 @@ Helpful resources
  - 
 
 # Privilige escalation
+### Linux
  - `id` see what groups we are a part of, google to see if these groups have any extra permissions.
+### Windows
+ - `whoami /priv` to see what priviliges you have.
+ - See wierd folders and files.
+ - `schtasks` in cmd or `ps` in powershell to see processes.
+ - 
