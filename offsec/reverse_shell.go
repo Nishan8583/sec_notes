@@ -41,7 +41,7 @@ func main() {
 			fmt.Println(err)
 			continue
 		}
-		fmt.Fprintf(conn, "%s \n%s >>>", string(output), dir)
+		fmt.Fprintf(conn, "\n%s \n%s >>>", string(output), dir)
 	}
 }
 
