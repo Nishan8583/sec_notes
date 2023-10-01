@@ -97,7 +97,21 @@ Helpful resources
 ### Linux
  - `id` see what groups we are a part of, google to see if these groups have any extra permissions.
  - `sudo -l` check sudo permissions.
+ - `getcap -r / 2>/dev/null` to see the capabilities.
  - Check GTFO bin `https://gtfobins.github.io/`.
+ - `find / -group <group_name> 2>/dev/null` to find file with certain group permissions.
+ - `ls -al` to check if file has sudo permission.
+ - If a file uses common binary insecurely, i.e. cat, wihtout fill path, we do create a new file in /tmp like `/tmp/cat`, the content of cat `/bin/sh`
+ - and set `export PATH=/tmp:$PATH`, finally run the `suid` bit set file that runs `cat`, we might get it.
+ - Scripts that check
+  - LinPeas: https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/
+  - LinEnum: https://github.com/rebootuser/LinEnum
+  - LES (Linux Exploit Suggester): https://github.com/mzet-/linux-exploit-suggester
+  - Linux Smart Enumeration: https://github.com/diego-treitos/linux-smart-enumeration
+  - Linux Priv Checker: https://github.com/linted/linuxprivchecker
+ - network mound, if no_root_sqash present `showmount -e victimsIP` `mount -o rw ip:/victimdir local_dir/` make file with suid bit set in local_dir change owner to root run in victims machine.
+ - Check for any cronjob, that we can manipulate.
+
 ### Windows
  - `whoami /priv` to see what priviliges you have.
  - See wierd folders and files.
