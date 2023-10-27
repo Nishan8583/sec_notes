@@ -26,10 +26,13 @@ Helpful resources
 18. google dorking, site:tryhackme.com, inurl:admin, filetype:pdf, intitle:admin
 19.  wayback
 20.  github, see repo, old passwords?
-21.  There might be .git in url. `dirsearch` finds it? then use `bash gitdumper.sh http://target/.git/ <dest-dir>`
-22.  The tool is in https://github.com/internetwache/GitTools,
-23.  `git restore .` to get to latest version. `git log` see latest.
-24. S3 Buckets S3 Buckets are a storage service provided by Amazon AWS, allowing people to save files and even static website content in the cloud accessible over HTTP and HTTPS. The owner of the files     can set access permissions to either make files public, private and even writable. Sometimes these access permissions are incorrectly set and inadvertently allow access to files that sh    ouldn't be available to the public. The format of the S3 buckets is http(s)://{name}.s3.amazonaws.com where {name} is decided by the owner, such as tryhackme-assets.s3.amazonaws.com. S3     buckets can be discovered in many ways, such as finding the URLs in the website's page source, GitHub repositories, or even automating the process. One common automation method is by usi    ng the company name followed by common terms such as {name}-assets, {name}-www, {name}-public, {name}-private, etc.
+21.  There might be .git in url. `dirsearch` finds it? then use
+```diff
+@@ bash gitdumper.sh http://target/.git/ <dest-dir> @@
+```
+23.  The tool is in https://github.com/internetwache/GitTools,
+24.  `git restore .` to get to latest version. `git log` see latest.
+25. S3 Buckets S3 Buckets are a storage service provided by Amazon AWS, allowing people to save files and even static website content in the cloud accessible over HTTP and HTTPS. The owner of the files     can set access permissions to either make files public, private and even writable. Sometimes these access permissions are incorrectly set and inadvertently allow access to files that sh    ouldn't be available to the public. The format of the S3 buckets is http(s)://{name}.s3.amazonaws.com where {name} is decided by the owner, such as tryhackme-assets.s3.amazonaws.com. S3     buckets can be discovered in many ways, such as finding the URLs in the website's page source, GitHub repositories, or even automating the process. One common automation method is by usi    ng the company name followed by common terms such as {name}-assets, {name}-www, {name}-public, {name}-private, etc.
 
 ### Authntication
  - Username enumeration, bruteforce username and password
