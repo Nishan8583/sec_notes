@@ -20,3 +20,16 @@ ________________________________________________
   - Overwrite existing data with zero: dd if=/dev/zero of=/dev/mapper/EDCdrive.
   - Format the partition: mkfs.ext4 /dev/mapper/EDCdrive -L "Strategos USB".
   - Mount it and start using it like a usual partition: mount /dev/mapper/EDCdrive /media/secure-USB.
+
+# Firewall
+- At the very core, we have netfilter. The netfilter project provides packet-filtering software for the Linux kernel 2.4.x and later versions. Other tools are based on this.
+- iptables
+```
+iptables -A OUTPUT -p tcp --sport 22 -j ACCEPT
+iptables -A INPUT -j DROP
+iptables -A OUTPUT -j DROP
+```
+- nftables, a bit complicated.
+- UFW makes things easier.
+  - `ufw allow 22/tcp`
+  - `sudo ufw status`
