@@ -1,0 +1,6 @@
+# General
+- Virtualization, Docker stuff …
+
+# Kubernetes
+- Look at online stuffs…
+- https://kubernetes.io/docs/reference/kubectl/cheatsheet/
