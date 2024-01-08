@@ -68,4 +68,6 @@ wfuzz -c -z file,usernames.txt -z file,passwords.txt --hs "Please enter the corr
 - Theres preview mode like this.
 ![preview.png](./preview.png)
 - Room to check out https://tryhackme.com/room/caseb4dm755
-- 
+
+# Day 14 of machine learning is great
+https://tryhackme.com/room/adventofcyber2023

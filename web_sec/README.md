@@ -124,16 +124,99 @@ https://github.com/bugcrowd/bugcrowd_university
   - DOM-based open-redirection vulnerabilities arise when a script writes attacker-controllable data into a sink that can trigger cross-domain navigation.
   Ex: = 'returnUrl = **/url**=(https?:\/\/.+)/.exec(location); if(returnUrl)location.href = returnUrl[1];else location.href = "/"'>
   so Attack can be https://origianl_url&url=AttackersURL cause the URL parameter is directly writable by the user
-### OWASP top 10 API
+
+### API
+- Look for documentation, machine readable like owasp zap swagger.
+- Browse the apps.
+- Identify API endpoints
+    - what methods do they support?
+    - supported content types?
+    - Errors they can handle?
+  - Fuzz to find hidden endpoints, hidden parameter (param miner)
   - *API broken user authentication*, Password dump in breach, and 2fa brute force
   - *Broken Function Level authorization*, api endpoint /api/user/453, user id Change may get access, or access for another method ?
   - *Execissive data exposure*, EX: if password reset api, gives the link directly as response as well, or something similar
   - *Mass assignment* extra properties in JSON object passed. Ex: in forgot password {username:asd,password:"asd",isAdmin:false}, could change isAdmin to true
- 
-	
-## Mass assignment
- - Mass assignment reflects a scenario where client-side data is automatically bound with server-side objects or class variables. However, hackers exploit the feature by first understanding the application's business logic and sending specially crafted data to the server, acquiring administrative access or inserting tampered data. This functionality is widely exploited in the latest frameworks like Laravel, Code Ignitor etc.
- - like when creating user, `credit` column, u can actually add the value.
+  - Exploit unused API, check an api available methods Ex
+  - ```
+	GET api/products/1/price
+    ```
+- Se options
+- ```
+  OPTIONS api/products/1/price
+  ```
+- In lab got, PATCH allowed, passing json, it asked for price, it seems we could set price
+- ```
+      PATCH /api/products/1/price HTTP/2
+	Host: 0a4a0084033b3c73827a0191002c0077.web-security-academy.net
+
+    Content-Type: application/json
+    
+    Accept-Language: en-US,en;q=0.9
+    Priority: u=1, i
+    Content-Length: 13
+    
+    {
+    "price":0
+  }
+  ```
+##### Mass assignment
+- Mass assignment reflects a scenario where client-side data is automatically bound with server-side objects or class variables. However, hackers exploit the feature by first understanding the application's business logic and sending specially crafted data to the server, acquiring administrative access or inserting tampered data. This functionality is widely exploited in the latest frameworks like Laravel, Code Ignitor etc.
+- like when creating user, `credit` column, u can actually add the value.
+- Finding it, lets say we have a request to create use rlike this
+```
+{ "username": "wiener", "email": "wiener@example.com", }
+```
+- When we get user info
+```
+{ "id": 123, "name": "John Doe", "email": "john@example.com", "isAdmin": "false" 
+```
+- So now we know that `id` and `isAdmin` is another paramter that we can check if we can assign ourselves.
+
+##### Server Side Paramter Pollution
+- Server-side parameter pollution occurs when a website embeds user input in a server-side request to an internal API without adequate encoding.
+- Test using #,& and =.
+- using #
+<!--StartFragment-->
+
+`GET /userSearch?name=peter%23foo&back=/home`
+
+The front-end will try to access the following URL:
+
+`GET /users/search?name=peter#foo&publicProfile=true`
+
+<!--EndFragment-->
+- Interpret response, In this case if not truncated not exploitable cause foo has been treated as part of response
+- If truncated, valid response, i.e. publicProfile=true does not seem to matter and we can get private profile as well.
+- Using &
+<!--StartFragment-->
+
+`GET /userSearch?name=peter%26email=foo&back=/home`
+
+This results in the following server-side request to the internal API:
+
+`GET /users/search?name=peter&email=foo&publicProfile=true`
+
+Review the response for clues about how the additional parameter is parsed.
+
+<!--EndFragment-->
+- Using =
+<!--StartFragment-->
+
+`GET /userSearch?name=peter%26name=carlos&back=/home`
+
+This results in the following server-side request to the internal API:
+
+`GET /users/search?name=peter&name=carlos&publicProfile=true`
+
+<!--EndFragment-->
+<!--StartFragment-->
+
+If you're able to override the original parameter, you may be able to conduct an exploit. For example, you could add `name=administrator` to the request. This may enable you to log in as the administrator user.
+
+<!--EndFragment-->
+
+
 
 ### Go specific stuff
 	go specific CVEs
