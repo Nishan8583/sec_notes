@@ -86,3 +86,20 @@ Click on Add → Select a principal. 
 # Purple teaming
 - perform attack, check what logs are created and what alerts are fired off, if not, need to update stuffs.
 - Rooms to look at [tempest](https://tryhackme.com/room/tempestincident) and [MSDT](https://tryhackme.com/room/follinamsdt).
+
+# Sigma rules
+- Its a way of detecting events in various logs format.
+- https://github.com/SigmaHQ/sigma
+- There is sigma converter that converts sigma rule into various vendors query.
+<!--StartFragment-->
+
+*   Key fields: Title, ID (UUID format), References (Derived, Obsolete, Merged, Renamed, Similar), Status (Stable, Test, Experimental, Deprecated, Unsupported).
+*   Description provides detailed context about the rule's purpose.
+*   Logsource describes log data, including Product, Category, Service, and Definition.
+*   Detection field has search identifiers and condition expressions for malicious activity.
+*   Detection modifier example: looking for logs with Windows Event IDs 19, 20, or 21.
+*   FalsePositives: List of known false positive outputs.
+*   Level: Severity levels - Informational, Low, Medium, High, Critical.
+*   Tags: Additional information for categorizing the rule (e.g., CVE numbers, MITRE ATT\&CK framework).
+
+<!--EndFragment-->
