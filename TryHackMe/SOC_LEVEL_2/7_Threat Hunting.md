@@ -123,3 +123,9 @@ Applying it
     *   Profiling previously undetectable threats aids in the creation of effective detection mechanisms for future incidents.
 
 <!--EndFragment-->
+
+## Tactic: Initial Access
+- Actively pursuing and investigating intrusion attempts with a deep understanding of attackers' methods.
+- brute-forcing attempts via SSH, exploiting web application vulnerabilities, and phishing.
+
+
