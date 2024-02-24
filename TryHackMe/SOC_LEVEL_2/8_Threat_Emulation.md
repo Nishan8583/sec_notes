@@ -169,3 +169,52 @@
     *   Continuous updates are necessary as adversary TTPs evolve, such as with FIN7's changing tactics.
 
 <!--EndFragment-->
+
+<!--StartFragment-->
+
+1.  **Planning the Threat Emulation Engagement: Part 2**
+
+    *   Proper planning is essential to avoid problems like disclosure of private data, data loss, and system downtime.
+    *   Planning includes defining rules of engagement, determining needed resources, and establishing communication channels.
+
+2.  **Threat Emulation Plans:**
+
+    *   Collection of resources organizing step-by-step instructions for adversary behaviors based on specific TTPs.
+    *   Elements of a well-defined plan include engagement objectives, scope, schedule, rules of engagement, permission to execute, and communication plan.
+
+3.  **Conducting the Emulation:**
+
+    *   Skilled professionals replicate tactics and techniques of the target adversary in a controlled and safe environment.
+    *   Resources needed include an attack platform, an analysis platform, and test systems.
+
+4.  **Planning the Deployment:**
+
+    *   Identifying TTPs to emulate and setting up the lab environment effectively.
+
+5.  **Implementation of TTP:**
+
+    *   Involves deploying actual TTPs, such as creating and obfuscating an Initial Access payload for FIN7.
+
+6.  **Detections & Mitigations:**
+
+    *   Cross-team collaboration to detect and mitigate emulated TTPs using standard cybersecurity tools and MITRE's recommendations.
+
+<!--EndFragment-->
+
+
+<!--StartFragment-->
+
+1.  **Observing Results:**
+
+    *   The Blue Team (observing team) needs to identify artifacts indicating emulation activity.
+    *   Analysis of logs, evaluation of event logs, and tracking networking traffic are essential tasks.
+    *   Detection rules like YARA rules, particularly for threats like pillowMint.exe malware (e.g., FIN7), are vital.
+    *   Results help assess if the TTP (Tactics, Techniques, and Procedures) was successful, blocked, or detected by security measures.
+
+2.  **Documenting & Reporting Findings:**
+
+    *   Teams must document and report the findings.
+    *   Documentation serves as empirical evidence for cybersecurity effectiveness.
+    *   Reports should cover exercise procedures, execution details according to the emulation plan, encountered impacts, and recommendations to mitigate threats.
+
+<!--EndFragment-->
