@@ -58,6 +58,8 @@ Helpful resources
 ### Access control
  - identifier-based access control. ex: https://test.com?doc=1234 , can u access directly if doc param value matches?
  - check for static files, directly accessible?
+ - Look for `robots.txt`
+ - URL unprotected but generated in js script in client side?
  - MUlti-stage, is another step direclty accessible?
  - Platform misconfiguration. use of different header?
  - Referer based? location based?
