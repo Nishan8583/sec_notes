@@ -57,6 +57,7 @@ Helpful resources
  
 ### Access control
  - identifier-based access control. ex: https://test.com?doc=1234 , can u access directly if doc param value matches?
+ - `IDOR`,is some page directly accessbile? Based on user ID and is user ID accessible in other places like blog post.
  - check for static files, directly accessible?
  - Look for `robots.txt`
  - URL unprotected but generated in js script in client side?
