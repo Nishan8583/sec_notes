@@ -75,7 +75,7 @@ A Kubernetes cluster orchestrates containerized applications by distributing the
 In DevSecOps, understanding this architecture is crucial for effectively deploying, managing, and securing containerized applications using Kubernetes.
 
 
-Configuring Kubernetes Deployments and Services
+# Configuring Kubernetes Deployments and Services
 
 Now that we have an understanding of Kubernetes components and architecture, let’s delve into how to configure a simple deployment that includes a service and a deployment, which will control a ReplicaSet managing the pods. We’ll use YAML configuration files to define these components.
 Configuration Basics
