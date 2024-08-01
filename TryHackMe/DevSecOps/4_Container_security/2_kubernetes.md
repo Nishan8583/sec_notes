@@ -1,4 +1,4 @@
-Kubernetes Architecture Overview
+# Kubernetes Architecture Overview
 
 To fully grasp how Kubernetes functions in DevSecOps, let's delve into its architecture, breaking down each key component and understanding how they interconnect.
 1. Kubernetes Pods
@@ -175,3 +175,24 @@ These commands will create the specified service and deployment in your Kubernet
 Summary
 
 By defining a service and a deployment with YAML configuration files, we can effectively manage a set of pods in a Kubernetes cluster. The service provides a stable access point for these pods, while the deployment ensures the desired number of pod replicas are running, maintaining the application's availability and scalability.
+
+# Kubectl COmmands
+1. Check pods status
+`kubectl get pods`
+
+2. View detailed information about a specific pod named example-pod in the example-namespace namespace:
+
+`kubectl describe pod example-pod -n example-namespace`
+
+3. Retrieve logs from a pod named example-pod in the example-namespace namespace:
+
+`kubectl logs example-pod -n example-namespace`
+
+4. Access a shell in a container named nginx in a pod named example-pod in the example-namespace namespace:
+
+`kubectl exec -it example-pod -n example-namespace -- sh`
+
+5. Create a secure tunnel from your local machine to a service named example-service exposing port 8080, mapping it to local port 8090:
+
+`kubectl port-forward service/example-service 8090:8080`
+
