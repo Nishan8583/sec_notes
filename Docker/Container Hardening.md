@@ -59,3 +59,29 @@ Namespaces in Docker:
 
     Creates isolated environments for processes.
     Provides security by ensuring actions in one namespace do not affect other processes.
+
+### Seccomp and Armor
+    Seccomp:
+        A Linux security feature that restricts system calls an application can make.
+        Works like a security guard, enforcing rules on permitted actions.
+        Example profile allows file operations but denies execution (execve).
+
+    Creating and Applying Seccomp Profiles:
+        Profiles can be created in a text editor.
+        Apply profiles using the --security-opt seccomp flag in Docker (e.g., docker run --rm -it --security-opt seccomp=/path/to/profile.json mycontainer).
+
+    AppArmor:
+        A Mandatory Access Control (MAC) system that limits actions at the OS level.
+        Profiles determine what resources an application can access and what actions it can take.
+        Example profile restricts an Apache web server’s file access and network bindings.
+
+    Creating and Applying AppArmor Profiles:
+        Ensure AppArmor is installed (sudo aa-status).
+        Create a profile, load it using apparmor_parser, and apply it using the --security-opt apparmor flag in Docker (e.g., docker run --rm -it --security-opt apparmor=/path/to/profile.json mycontainer).
+
+    Difference Between Seccomp and AppArmor:
+        AppArmor controls resource access and actions at the OS level.
+        Seccomp restricts system calls within the program.
+        Both can be combined for enhanced security in Docker containers.
+
+
