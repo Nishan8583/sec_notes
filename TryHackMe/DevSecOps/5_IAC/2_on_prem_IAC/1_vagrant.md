@@ -23,7 +23,7 @@ Here's an example of a Vagrant provisioning script and a simple project structur
 ```
 ### Vagrantfile Script
 
-```vagrant
+```ruby
 
 Vagrant.configure("2") do |cfg|
   cfg.vm.define "server" do |config|
